@@ -51,34 +51,34 @@ export default function Navigation() {
   };
 
   return (
-    <header className="sticky top-0 z-50 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 border-b glass backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
+        <div className="flex justify-between items-center py-4 fade-in">
           <div className="flex items-center space-x-4">
-            <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+            <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-all duration-500 hover-lift">
               <img 
                 src={currentLogo} 
                 alt="Invoice Generator Logo" 
-                className="h-10 w-auto object-contain"
+                className="h-10 w-auto object-contain float"
               />
               <div>
-                <h1 className="text-2xl font-bold text-foreground">
+                <h1 className="text-2xl font-bold text-foreground font-[Plus_Jakarta_Sans] bg-gradient-to-r from-primary via-pink-500 to-primary bg-clip-text text-transparent">
                   Invoice Pro
                 </h1>
-                <p className="text-xs text-muted-foreground font-medium">Professional Invoicing</p>
+                <p className="text-xs text-muted-foreground font-medium font-[Manrope]">Professional Invoicing</p>
               </div>
             </Link>
           </div>
           
           <nav className="hidden md:flex items-center space-x-2">
-            {navItems.map((item) => (
+            {navItems.map((item, index) => (
               <Link
                 key={item.path}
                 href={item.path}
-                className={`relative px-4 py-2 rounded-md font-medium transition-all duration-200 ${
+                className={`relative px-4 py-2 rounded-lg font-medium transition-all duration-300 btn-animate font-[Manrope] fade-in-delay-${index + 1} ${
                   isActive(item.path)
-                    ? "bg-primary text-primary-foreground shadow-md"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                    ? "bg-gradient-to-r from-primary to-pink-500 text-primary-foreground shadow-lg"
+                    : "text-muted-foreground hover:text-foreground hover:bg-gradient-pink-subtle"
                 }`}
               >
                 <i className={`${item.icon} mr-2`}></i>
@@ -91,12 +91,12 @@ export default function Navigation() {
               variant="ghost"
               size="sm"
               onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-              className="ml-2"
+              className="ml-2 btn-animate hover:bg-gradient-pink-subtle rounded-full"
             >
               {theme === "light" ? (
-                <i className="fas fa-moon h-4 w-4"></i>
+                <i className="fas fa-moon h-4 w-4 text-primary"></i>
               ) : (
-                <i className="fas fa-sun h-4 w-4"></i>
+                <i className="fas fa-sun h-4 w-4 text-primary"></i>
               )}
             </Button>
           </nav>
@@ -106,16 +106,17 @@ export default function Navigation() {
               variant="ghost"
               size="sm"
               onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+              className="btn-animate hover:bg-gradient-pink-subtle rounded-full"
             >
               {theme === "light" ? (
-                <i className="fas fa-moon h-4 w-4"></i>
+                <i className="fas fa-moon h-4 w-4 text-primary"></i>
               ) : (
-                <i className="fas fa-sun h-4 w-4"></i>
+                <i className="fas fa-sun h-4 w-4 text-primary"></i>
               )}
             </Button>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors"
+              className="p-2 text-muted-foreground hover:text-foreground hover:bg-gradient-pink-subtle rounded-lg transition-all duration-300 btn-animate"
             >
               <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'} text-lg`}></i>
             </button>
@@ -125,17 +126,17 @@ export default function Navigation() {
       
       {/* Mobile menu */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t">
-          <div className="px-4 py-2 space-y-1 bg-background">
-            {navItems.map((item) => (
+        <div className="md:hidden border-t border-pink-400/20 fade-in-up">
+          <div className="px-4 py-2 space-y-1 glass">
+            {navItems.map((item, index) => (
               <Link
                 key={item.path}
                 href={item.path}
                 onClick={() => setIsMobileMenuOpen(false)}
-                className={`block px-3 py-2 rounded-md font-medium transition-all duration-200 ${
+                className={`block px-3 py-2 rounded-lg font-medium transition-all duration-300 btn-animate font-[Manrope] fade-in-delay-${index + 1} ${
                   isActive(item.path)
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                    ? "bg-gradient-to-r from-primary to-pink-500 text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground hover:bg-gradient-pink-subtle"
                 }`}
               >
                 <i className={`${item.icon} mr-3`}></i>

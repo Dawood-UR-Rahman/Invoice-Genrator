@@ -16,10 +16,16 @@ import Terms from "@/pages/terms";
 
 function Router() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col relative">
+      {/* Background gradient animation */}
+      <div className="fixed inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-pink-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900"></div>
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-pink-100/20 via-transparent to-purple-100/20 dark:from-pink-900/10 dark:via-transparent dark:to-purple-900/10 animate-pulse"></div>
+      </div>
+      
       <Navigation />
       <main className="flex-1">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full fade-in-up">
           <Switch>
             <Route path="/" component={CreateInvoice} />
             <Route path="/create" component={CreateInvoice} />
@@ -43,8 +49,10 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider defaultTheme="light" storageKey="invoice-pro-theme">
         <TooltipProvider>
-          <Toaster />
-          <Router />
+          <div className="transition-all duration-500 ease-in-out">
+            <Toaster />
+            <Router />
+          </div>
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>

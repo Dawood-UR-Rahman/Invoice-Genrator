@@ -6,3 +6,7 @@
 [x] 6. Fix QR code functionality for public invoice viewing
 [x] 7. Add public route for invoice viewing without authentication
 [x] 8. Ensure only invoice owners can edit and see invoices in their history
+[x] 9. Modernize design with beautiful fonts and pink gradients
+[x] 10. Add enhanced animations and hover effects
+[x] 11. Fix footer text alignment to left
+[x] 12. Update color theme to work properly with light/dark modes

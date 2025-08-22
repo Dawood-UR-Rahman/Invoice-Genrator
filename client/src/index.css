@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Manrope:wght@200;300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
 @tailwind base;
@@ -31,21 +31,46 @@
   body {
     background: hsl(var(--background));
     min-height: 100vh;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Manrope', sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
   }
 
-  /* Glass morphism effects */
+  /* Glass morphism effects with pink accents */
   .glass {
     background: hsl(var(--card) / 0.8);
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(24px);
     border: 1px solid hsl(var(--border));
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    box-shadow: 0 8px 32px rgba(255, 20, 147, 0.1), 0 4px 16px rgba(255, 20, 147, 0.05);
   }
 
   .dark .glass {
     background: hsl(var(--card) / 0.9);
     border: 1px solid hsl(var(--border));
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.2);
+    box-shadow: 0 8px 32px rgba(255, 20, 147, 0.15), 0 4px 16px rgba(255, 20, 147, 0.08);
+  }
+
+  /* Pink gradient backgrounds */
+  .gradient-pink {
+    background: linear-gradient(135deg, #ff0080 0%, #ff4081 25%, #ff80ab 50%, #ffc1cc 75%, #ffe0f0 100%);
+  }
+
+  .gradient-pink-subtle {
+    background: linear-gradient(135deg, rgba(255, 0, 128, 0.1) 0%, rgba(255, 64, 129, 0.1) 50%, rgba(255, 192, 203, 0.1) 100%);
+  }
+
+  /* Animated pink gradient */
+  .gradient-animated {
+    background: linear-gradient(-45deg, #ff0080, #ff4081, #ff80ab, #ffc1cc);
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 
   /* Premium shadows */
@@ -53,73 +78,145 @@
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   }
 
-  /* Hover animations */
+  /* Enhanced hover animations */
   .hover-lift {
-    @apply transition-all duration-300 ease-out;
+    @apply transition-all duration-500 ease-out;
+    transform-style: preserve-3d;
   }
 
   .hover-lift:hover {
-    @apply transform -translate-y-1 shadow-xl;
+    @apply transform -translate-y-2;
+    box-shadow: 0 20px 40px rgba(255, 20, 147, 0.2), 0 8px 16px rgba(255, 20, 147, 0.1);
   }
 
-  /* Button animations */
+  /* Enhanced button animations */
   .btn-animate {
-    @apply transition-all duration-200 ease-in-out;
+    @apply transition-all duration-300 ease-in-out;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-animate::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .btn-animate:hover::before {
+    left: 100%;
   }
 
   .btn-animate:hover {
     @apply transform scale-105;
+    box-shadow: 0 8px 25px rgba(255, 20, 147, 0.3);
   }
 
   .btn-animate:active {
     @apply transform scale-95;
   }
+
+  /* Floating animation */
+  .float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* Fade in animations */
+  .fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+
+  .fade-in-delay-1 { animation-delay: 0.1s; }
+  .fade-in-delay-2 { animation-delay: 0.2s; }
+  .fade-in-delay-3 { animation-delay: 0.3s; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Pulse animation */
+  .pulse-soft {
+    animation: pulseSoft 2s ease-in-out infinite;
+  }
+
+  @keyframes pulseSoft {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
 }
 
 :root {
-  /* Light Mode Colors */
+  /* Light Mode Colors with Pink Theme */
   --background: 0 0% 100%;
   --foreground: 222.2 84% 4.9%;
   --card: 0 0% 100%;
   --card-foreground: 222.2 84% 4.9%;
   --popover: 0 0% 100%;
   --popover-foreground: 222.2 84% 4.9%;
-  --primary: 221.2 83.2% 53.3%;
+  --primary: 330 81% 60%;  /* Pink primary */
   --primary-foreground: 210 40% 98%;
-  --secondary: 210 40% 96%;
+  --secondary: 330 20% 96%;
   --secondary-foreground: 222.2 84% 4.9%;
-  --muted: 210 40% 96%;
+  --muted: 330 10% 96%;
   --muted-foreground: 215.4 16.3% 46.9%;
-  --accent: 210 40% 96%;
+  --accent: 330 15% 96%;
   --accent-foreground: 222.2 84% 4.9%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 210 40% 98%;
-  --border: 214.3 31.8% 91.4%;
-  --input: 214.3 31.8% 91.4%;
-  --ring: 221.2 83.2% 53.3%;
-  --radius: 0.5rem;
+  --border: 330 31.8% 91.4%;
+  --input: 330 31.8% 91.4%;
+  --ring: 330 81% 60%;  /* Pink ring */
+  --radius: 0.75rem;
+  
+  /* Pink gradients */
+  --gradient-primary: linear-gradient(135deg, #ff0080 0%, #ff4081 50%, #ff80ab 100%);
+  --gradient-subtle: linear-gradient(135deg, rgba(255, 0, 128, 0.1) 0%, rgba(255, 192, 203, 0.1) 100%);
 }
 
 .dark {
+  /* Dark Mode Colors with Pink Theme */
   --background: 222.2 84% 4.9%;
   --foreground: 210 40% 98%;
   --card: 222.2 84% 4.9%;
   --card-foreground: 210 40% 98%;
   --popover: 222.2 84% 4.9%;
   --popover-foreground: 210 40% 98%;
-  --primary: 217.2 91.2% 59.8%;
+  --primary: 330 81% 70%;  /* Lighter pink for dark mode */
   --primary-foreground: 222.2 84% 4.9%;
-  --secondary: 217.2 32.6% 17.5%;
+  --secondary: 330 32.6% 17.5%;
   --secondary-foreground: 210 40% 98%;
-  --muted: 217.2 32.6% 17.5%;
+  --muted: 330 32.6% 17.5%;
   --muted-foreground: 215 20.2% 65.1%;
-  --accent: 217.2 32.6% 17.5%;
+  --accent: 330 32.6% 17.5%;
   --accent-foreground: 210 40% 98%;
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 210 40% 98%;
-  --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 17.5%;
-  --ring: 224.3 76.3% 94.1%;
+  --border: 330 32.6% 17.5%;
+  --input: 330 32.6% 17.5%;
+  --ring: 330 76.3% 84.1%;  /* Pink ring for dark mode */
+  
+  /* Dark mode pink gradients */
+  --gradient-primary: linear-gradient(135deg, #ff4081 0%, #ff80ab 50%, #ffc1cc 100%);
+  --gradient-subtle: linear-gradient(135deg, rgba(255, 64, 129, 0.2) 0%, rgba(255, 192, 203, 0.1) 100%);
 }
 
 @layer base {

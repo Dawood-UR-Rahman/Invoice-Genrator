@@ -260,6 +260,10 @@
                transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  html {
+    color-scheme: light dark;
+  }
+
   body {
     @apply font-body antialiased bg-background text-foreground;
     min-height: 100vh;

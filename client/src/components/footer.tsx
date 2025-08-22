@@ -54,10 +54,10 @@ export default function Footer() {
                   <li key={item.label}>
                     <Link 
                       href={item.to}
-                      className="flex items-center text-muted-foreground hover:text-foreground transition-all duration-300 group"
+                      className="flex items-start text-muted-foreground hover:text-foreground transition-all duration-300 group"
                     >
                       <i className={`${item.icon} mr-3 group-hover:text-primary transition-colors`}></i>
-                      <span className="group-hover:translate-x-1 transition-transform font-body">{item.label}</span>
+                      <span className="group-hover:translate-x-1 transition-transform font-body text-left">{item.label}</span>
                     </Link>
                   </li>
                 ))}
@@ -77,20 +77,20 @@ export default function Footer() {
                     {item.to ? (
                       <Link 
                         href={item.to}
-                        className="flex items-center text-white/70 hover:text-white transition-all duration-300 group"
+                        className="flex items-start text-muted-foreground hover:text-foreground transition-all duration-300 group"
                       >
                         <i className="fas fa-arrow-right mr-3 group-hover:text-primary transition-colors"></i>
-                        <span className="group-hover:translate-x-1 transition-transform font-body">{item.label}</span>
+                        <span className="group-hover:translate-x-1 transition-transform font-body text-left">{item.label}</span>
                       </Link>
                     ) : (
                       <a 
                         href={item.href}
-                        className="flex items-center text-white/70 hover:text-white transition-all duration-300 group"
+                        className="flex items-start text-muted-foreground hover:text-foreground transition-all duration-300 group"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
                         <i className="fas fa-arrow-right mr-3 group-hover:text-primary transition-colors"></i>
-                        <span className="group-hover:translate-x-1 transition-transform font-body">{item.label}</span>
+                        <span className="group-hover:translate-x-1 transition-transform font-body text-left">{item.label}</span>
                       </a>
                     )}
                   </li>
@@ -109,10 +109,10 @@ export default function Footer() {
                   <li key={item.label}>
                     <Link 
                       href={item.to}
-                      className="flex items-center text-white/70 hover:text-white transition-all duration-300 group"
+                      className="flex items-start text-muted-foreground hover:text-foreground transition-all duration-300 group"
                     >
-                      <i className="fas fa-arrow-right mr-3 group-hover:text-blue-400 transition-colors"></i>
-                      <span className="group-hover:translate-x-1 transition-transform">{item.label}</span>
+                      <i className="fas fa-arrow-right mr-3 group-hover:text-primary transition-colors"></i>
+                      <span className="group-hover:translate-x-1 transition-transform font-body text-left">{item.label}</span>
                     </Link>
                   </li>
                 ))}

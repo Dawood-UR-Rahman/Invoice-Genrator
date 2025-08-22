@@ -62,7 +62,7 @@ export default function Navigation() {
                 className="h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
               />
               <div>
-                <h1 className="text-2xl font-display font-bold text-foreground bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                <h1 className="text-2xl font-display font-bold text-foreground">
                   Invoice Pro
                 </h1>
                 <p className="text-xs text-muted-foreground font-medium font-body">Professional Invoicing</p>

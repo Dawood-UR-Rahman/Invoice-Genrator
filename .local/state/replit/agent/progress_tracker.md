@@ -10,3 +10,7 @@
 [x] 10. Add enhanced animations and hover effects
 [x] 11. Fix footer text alignment to left
 [x] 12. Update color theme to work properly with light/dark modes
+[x] 13. Fix Invoice Pro logo text visibility in light mode
+[x] 14. Fix footer column colors for support and legal sections
+[x] 15. Correct download button colors for both light and dark modes
+[x] 16. Ensure proper dark mode functionality across entire application

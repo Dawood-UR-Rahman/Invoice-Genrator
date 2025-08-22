@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { useTheme } from "../hooks/use-theme";
-import { Button } from "@/components/ui/button";
 import modernLogo from '../assets/Professional_invoice_management_logo_16aa0397.png';
 import classicLogo from '../assets/Classic_business_invoice_logo_d1656218.png';
 import creativeLogo from '../assets/Creative_modern_invoice_logo_8ed122e0.png';
@@ -9,7 +7,6 @@ import creativeLogo from '../assets/Creative_modern_invoice_logo_8ed122e0.png';
 export default function Navigation() {
   const [location] = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { theme, setTheme } = useTheme();
   
   // Get theme from localStorage or default to 'classic'
   const getTheme = () => {

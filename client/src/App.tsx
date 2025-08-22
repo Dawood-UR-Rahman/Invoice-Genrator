@@ -50,7 +50,7 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="dark" storageKey="invoice-pro-theme">
+      <ThemeProvider defaultTheme="light" storageKey="invoice-pro-theme">
         <TooltipProvider>
           <div className="transition-all duration-500 ease-in-out">
             <Toaster />

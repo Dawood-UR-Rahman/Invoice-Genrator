@@ -457,7 +457,7 @@ export default function CreateInvoice() {
                   <PDFDownloadButton
                     invoice={currentInvoice}
                     qrCodeDataURL={qrCodeDataURL || undefined}
-                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-3 rounded-xl font-medium transition-all duration-300 flex items-center justify-center text-sm lg:text-base shadow-md hover:shadow-lg"
+                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-3 rounded-xl font-medium transition-all duration-300 flex items-center justify-center text-sm lg:text-base shadow-md hover:shadow-lg"
                   >
                     <i className="fas fa-download mr-2"></i>Download PDF
                   </PDFDownloadButton>

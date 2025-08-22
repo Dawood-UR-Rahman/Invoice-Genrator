@@ -13,11 +13,17 @@ export default function Footer() {
             <div className="space-y-8 fade-in">
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
-                  <img 
-                    src="/src/assets/Professional_invoice_management_logo_16aa0397.png" 
-                    alt="Invoice Pro Logo" 
-                    className="h-8 w-auto object-contain"
-                  />
+                  <svg className="h-8 w-8" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="8" y="12" width="48" height="40" rx="4" fill="#10B981" stroke="#ffffff" strokeWidth="2"/>
+                    <rect x="12" y="16" width="40" height="32" rx="2" fill="#ffffff"/>
+                    <line x1="16" y1="22" x2="48" y2="22" stroke="#10B981" strokeWidth="2"/>
+                    <line x1="16" y1="26" x2="40" y2="26" stroke="#10B981" strokeWidth="1"/>
+                    <line x1="16" y1="30" x2="36" y2="30" stroke="#10B981" strokeWidth="1"/>
+                    <line x1="16" y1="34" x2="42" y2="34" stroke="#10B981" strokeWidth="1"/>
+                    <line x1="16" y1="38" x2="32" y2="38" stroke="#10B981" strokeWidth="1"/>
+                    <rect x="38" y="36" width="10" height="6" rx="1" fill="#10B981"/>
+                    <text x="43" y="41" fill="white" fontSize="4" textAnchor="middle">$</text>
+                  </svg>
                   <h3 className="text-2xl font-display font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
                     Invoice Pro
                   </h3>
@@ -28,20 +34,18 @@ export default function Footer() {
               </div>
               <div className="flex space-x-4">
                 {[
-                  { icon: 'fab fa-twitter', href: 'https://twitter.com', label: 'Twitter' },
-                  { icon: 'fab fa-linkedin', href: 'https://linkedin.com', label: 'LinkedIn' },
-                  { icon: 'fab fa-github', href: 'https://github.com', label: 'GitHub' },
-                  { icon: 'fab fa-discord', href: 'https://discord.com', label: 'Discord' }
+                  { icon: 'fab fa-linkedin', href: 'https://linkedin.com', label: 'LinkedIn' }
                 ].map((social) => (
                   <a
                     key={social.label}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-11 h-11 bg-accent hover:bg-primary/10 rounded-xl flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-105 shadow-sm hover:shadow-md"
+                    className="w-11 h-11 bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm border border-white/20 hover:bg-gradient-to-br hover:from-primary/20 hover:to-primary/5 rounded-xl flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl relative overflow-hidden group"
                     aria-label={social.label}
                   >
-                    <i className={social.icon}></i>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                    <i className={`${social.icon} relative z-10`}></i>
                   </a>
                 ))}
               </div>

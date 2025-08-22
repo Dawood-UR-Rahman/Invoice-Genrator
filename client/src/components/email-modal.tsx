@@ -84,9 +84,9 @@ export default function EmailModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md w-[95vw] max-h-[90vh] overflow-y-auto mx-4">
         <DialogHeader>
-          <DialogTitle className="flex items-center">
+          <DialogTitle className="flex items-center text-base sm:text-lg">
             <i className="fas fa-envelope mr-2 text-primary"></i>
             Send Invoice
           </DialogTitle>
@@ -146,19 +146,19 @@ export default function EmailModal({
             </Label>
           </div>
           
-          <div className="flex space-x-3 pt-4">
+          <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 pt-4">
             <Button
               type="button"
               variant="outline"
               onClick={onClose}
-              className="flex-1"
+              className="w-full sm:flex-1 py-3"
               disabled={sendEmailMutation.isPending}
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              className="flex-1 bg-primary hover:bg-primary-dark"
+              className="w-full sm:flex-1 bg-primary hover:bg-primary-dark py-3"
               disabled={sendEmailMutation.isPending}
             >
               {sendEmailMutation.isPending ? (

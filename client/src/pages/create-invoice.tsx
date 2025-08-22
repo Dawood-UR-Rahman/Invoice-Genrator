@@ -373,19 +373,19 @@ export default function CreateInvoice() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-3">
               <Button
                 variant="outline"
                 onClick={handleSaveDraft}
                 disabled={createInvoiceMutation.isPending || updateInvoiceMutation.isPending}
-                className="btn-animate bg-white/80 hover:bg-white border-white/20 hover:border-white/40 text-gray-700 hover:text-gray-900 shadow-lg"
+                className="w-full sm:w-auto btn-animate bg-white/80 hover:bg-white border-white/20 hover:border-white/40 text-gray-700 hover:text-gray-900 shadow-lg"
               >
                 <i className="fas fa-save mr-2"></i>Save Draft
               </Button>
               <Button
                 onClick={handleSave}
                 disabled={createInvoiceMutation.isPending || updateInvoiceMutation.isPending}
-                className="btn-animate bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-lg hover:shadow-xl border-0"
+                className="w-full sm:w-auto btn-animate bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-lg hover:shadow-xl border-0"
               >
                 {createInvoiceMutation.isPending || updateInvoiceMutation.isPending ? (
                   <>
@@ -453,6 +453,26 @@ export default function CreateInvoice() {
             <CardContent className="p-4 lg:p-6">
               <h3 className="text-base lg:text-lg font-semibold text-gray-900 mb-4">Actions</h3>
               <div className="space-y-3">
+                {/* Mobile: Create Invoice Button */}
+                <div className="lg:hidden">
+                  <Button
+                    onClick={handleSave}
+                    disabled={createInvoiceMutation.isPending || updateInvoiceMutation.isPending}
+                    className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-3 font-medium shadow-lg hover:shadow-xl border-0 mb-3"
+                  >
+                    {createInvoiceMutation.isPending || updateInvoiceMutation.isPending ? (
+                      <>
+                        <i className="fas fa-spinner fa-spin mr-2"></i>Saving...
+                      </>
+                    ) : (
+                      <>
+                        <i className="fas fa-check mr-2"></i>
+                        {isEditing ? "Update Invoice" : "Create Invoice"}
+                      </>
+                    )}
+                  </Button>
+                </div>
+                
                 {currentInvoice && (
                   <PDFDownloadButton
                     invoice={currentInvoice}

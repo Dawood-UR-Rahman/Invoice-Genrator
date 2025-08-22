@@ -430,7 +430,8 @@ export default function InvoiceForm({
             </Button>
           </div>
           
-          <div className="overflow-x-auto">
+          {/* Desktop Table View */}
+          <div className="hidden md:block overflow-x-auto">
             <table className="w-full">
               <thead>
                 <tr className="border-b border-gray-200">
@@ -491,6 +492,68 @@ export default function InvoiceForm({
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile Vertical Layout */}
+          <div className="md:hidden space-y-4">
+            {lineItems.map((item, index) => (
+              <div key={index} className="border border-gray-200 rounded-lg p-4 bg-gray-50">
+                {/* First row: Service name */}
+                <div className="mb-3">
+                  <Label className="text-sm font-medium text-gray-700 mb-1 block">Service Description</Label>
+                  <Input
+                    value={item.description}
+                    onChange={(e) => handleLineItemChange(index, "description", e.target.value)}
+                    placeholder="Service description"
+                    className="border-gray-300"
+                  />
+                </div>
+                
+                {/* Second row: Qty and Rate */}
+                <div className="grid grid-cols-2 gap-3 mb-3">
+                  <div>
+                    <Label className="text-sm font-medium text-gray-700 mb-1 block">Quantity</Label>
+                    <Input
+                      type="number"
+                      min="1"
+                      value={item.quantity}
+                      onChange={(e) => handleLineItemChange(index, "quantity", parseInt(e.target.value) || 1)}
+                      className="text-center border-gray-300"
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-sm font-medium text-gray-700 mb-1 block">Rate</Label>
+                    <Input
+                      type="number"
+                      min="0"
+                      step="0.01"
+                      value={item.rate}
+                      onChange={(e) => handleLineItemChange(index, "rate", e.target.value)}
+                      className="text-right border-gray-300"
+                    />
+                  </div>
+                </div>
+                
+                {/* Third row: Amount and Delete button */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center">
+                    <span className="text-sm font-medium text-gray-700 mr-3">Amount:</span>
+                    <span className="text-lg font-bold text-gray-900">${item.amount}</span>
+                  </div>
+                  {lineItems.length > 1 && (
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => removeLineItem(index)}
+                      className="text-red-500 hover:text-red-700 hover:bg-red-50 ml-2"
+                    >
+                      <i className="fas fa-trash-alt mr-1"></i>Delete
+                    </Button>
+                  )}
+                </div>
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>

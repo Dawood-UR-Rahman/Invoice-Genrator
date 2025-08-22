@@ -14,3 +14,8 @@
 [x] 14. Fix footer column colors for support and legal sections
 [x] 15. Correct download button colors for both light and dark modes
 [x] 16. Ensure proper dark mode functionality across entire application
+[x] 17. Implement mobile responsiveness improvements
+[x] 18. Add create invoice button in mobile Actions section
+[x] 19. Fix email popup mobile layout
+[x] 20. Create mobile-friendly Line Items layout (vertical stacking)
+[x] 21. Add desktop border radius to Invoice Preview section

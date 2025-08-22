@@ -53,8 +53,8 @@ export default function InvoicePreview({
   const currencySymbol = getCurrencySymbol(formData.currency || "USD");
 
   return (
-    <Card>
-      <CardContent className="p-6" style={{ 
+    <Card className="md:rounded-xl">
+      <CardContent className="p-6 md:rounded-xl" style={{ 
         fontFamily: formData.fontFamily || template.fontFamily,
         backgroundColor: template.backgroundColor 
       }}>

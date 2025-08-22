@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Manrope:wght@200;300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&family=Figtree:wght@300;400;500;600;700;800;900&family=Satoshi:wght@300;400;500;600;700;800;900&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
 @tailwind base;
@@ -27,50 +27,66 @@
     }
   }
 
-  /* Custom styles */
+  /* Modern typography */
   body {
     background: hsl(var(--background));
     min-height: 100vh;
-    font-family: 'Plus Jakarta Sans', 'Manrope', sans-serif;
+    font-family: 'Inter', 'Figtree', system-ui, -apple-system, sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
+    letter-spacing: -0.01em;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Glass morphism effects with pink accents */
+  /* Modern glass morphism */
   .glass {
     background: hsl(var(--card) / 0.8);
-    backdrop-filter: blur(24px);
+    backdrop-filter: blur(20px);
     border: 1px solid hsl(var(--border));
-    box-shadow: 0 8px 32px rgba(255, 20, 147, 0.1), 0 4px 16px rgba(255, 20, 147, 0.05);
+    box-shadow: var(--shadow-lg);
+    border-radius: calc(var(--radius) * 1.5);
   }
 
   .dark .glass {
     background: hsl(var(--card) / 0.9);
     border: 1px solid hsl(var(--border));
-    box-shadow: 0 8px 32px rgba(255, 20, 147, 0.15), 0 4px 16px rgba(255, 20, 147, 0.08);
+    box-shadow: var(--shadow-xl);
   }
 
-  /* Pink gradient backgrounds */
-  .gradient-pink {
-    background: linear-gradient(135deg, #ff0080 0%, #ff4081 25%, #ff80ab 50%, #ffc1cc 75%, #ffe0f0 100%);
+  /* Modern gradient backgrounds */
+  .gradient-primary {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(263 70% 70%) 100%);
   }
 
-  .gradient-pink-subtle {
-    background: linear-gradient(135deg, rgba(255, 0, 128, 0.1) 0%, rgba(255, 64, 129, 0.1) 50%, rgba(255, 192, 203, 0.1) 100%);
+  .gradient-subtle {
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.05) 0%, hsl(var(--accent)) 100%);
   }
 
-  /* Animated pink gradient */
   .gradient-animated {
-    background: linear-gradient(-45deg, #ff0080, #ff4081, #ff80ab, #ffc1cc);
+    background: linear-gradient(-45deg, hsl(var(--primary)), hsl(263 70% 60%), hsl(262 83% 70%), hsl(220 14% 96%));
     background-size: 400% 400%;
-    animation: gradientShift 8s ease infinite;
+    animation: gradientShift 15s ease infinite;
   }
 
   @keyframes gradientShift {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }
+  }
+
+  /* Typography utilities */
+  .font-display {
+    font-family: 'Figtree', 'Inter', system-ui, sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.025em;
+  }
+
+  .font-body {
+    font-family: 'Inter', system-ui, sans-serif;
+    letter-spacing: -0.01em;
   }
 
   /* Premium shadows */
@@ -165,85 +181,117 @@
 }
 
 :root {
-  /* Light Mode Colors with Pink Theme */
-  --background: 0 0% 100%;
-  --foreground: 222.2 84% 4.9%;
+  /* Modern Color System - Light Mode */
+  --background: 0 0% 99%;
+  --foreground: 224 9% 9%;
   --card: 0 0% 100%;
-  --card-foreground: 222.2 84% 4.9%;
+  --card-foreground: 224 9% 9%;
   --popover: 0 0% 100%;
-  --popover-foreground: 222.2 84% 4.9%;
-  --primary: 330 81% 60%;  /* Pink primary */
-  --primary-foreground: 210 40% 98%;
-  --secondary: 330 20% 96%;
-  --secondary-foreground: 222.2 84% 4.9%;
-  --muted: 330 10% 96%;
-  --muted-foreground: 215.4 16.3% 46.9%;
-  --accent: 330 15% 96%;
-  --accent-foreground: 222.2 84% 4.9%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 330 31.8% 91.4%;
-  --input: 330 31.8% 91.4%;
-  --ring: 330 81% 60%;  /* Pink ring */
+  --popover-foreground: 224 9% 9%;
+  --primary: 262 83% 58%;  /* Modern purple-blue */
+  --primary-foreground: 0 0% 98%;
+  --secondary: 220 14% 96%;
+  --secondary-foreground: 224 9% 9%;
+  --muted: 220 13% 95%;
+  --muted-foreground: 220 9% 46%;
+  --accent: 220 13% 95%;
+  --accent-foreground: 224 9% 9%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 220 13% 91%;
+  --input: 220 13% 91%;
+  --ring: 262 83% 58%;
   --radius: 0.75rem;
+  --success: 142 69% 58%;
+  --warning: 38 92% 50%;
+  --info: 199 89% 48%;
   
-  /* Pink gradients */
-  --gradient-primary: linear-gradient(135deg, #ff0080 0%, #ff4081 50%, #ff80ab 100%);
-  --gradient-subtle: linear-gradient(135deg, rgba(255, 0, 128, 0.1) 0%, rgba(255, 192, 203, 0.1) 100%);
+  /* Modern shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
 }
 
 .dark {
-  /* Dark Mode Colors with Pink Theme */
-  --background: 222.2 84% 4.9%;
-  --foreground: 210 40% 98%;
-  --card: 222.2 84% 4.9%;
-  --card-foreground: 210 40% 98%;
-  --popover: 222.2 84% 4.9%;
-  --popover-foreground: 210 40% 98%;
-  --primary: 330 81% 70%;  /* Lighter pink for dark mode */
-  --primary-foreground: 222.2 84% 4.9%;
-  --secondary: 330 32.6% 17.5%;
-  --secondary-foreground: 210 40% 98%;
-  --muted: 330 32.6% 17.5%;
-  --muted-foreground: 215 20.2% 65.1%;
-  --accent: 330 32.6% 17.5%;
-  --accent-foreground: 210 40% 98%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 330 32.6% 17.5%;
-  --input: 330 32.6% 17.5%;
-  --ring: 330 76.3% 84.1%;  /* Pink ring for dark mode */
+  /* Modern Color System - Dark Mode */
+  --background: 224 71% 4%;
+  --foreground: 213 31% 91%;
+  --card: 224 71% 4%;
+  --card-foreground: 213 31% 91%;
+  --popover: 224 71% 4%;
+  --popover-foreground: 213 31% 91%;
+  --primary: 263 70% 50%;
+  --primary-foreground: 213 31% 91%;
+  --secondary: 215 28% 17%;
+  --secondary-foreground: 213 31% 91%;
+  --muted: 215 28% 17%;
+  --muted-foreground: 217 11% 65%;
+  --accent: 215 28% 17%;
+  --accent-foreground: 213 31% 91%;
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 213 31% 91%;
+  --border: 215 28% 17%;
+  --input: 215 28% 17%;
+  --ring: 263 70% 50%;
+  --success: 142 69% 58%;
+  --warning: 38 92% 50%;
+  --info: 199 89% 48%;
   
-  /* Dark mode pink gradients */
-  --gradient-primary: linear-gradient(135deg, #ff4081 0%, #ff80ab 50%, #ffc1cc 100%);
-  --gradient-subtle: linear-gradient(135deg, rgba(255, 64, 129, 0.2) 0%, rgba(255, 192, 203, 0.1) 100%);
+  /* Dark mode shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+  --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4), 0 2px 4px -2px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.4), 0 4px 6px -4px rgb(0 0 0 / 0.4);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.4), 0 8px 10px -6px rgb(0 0 0 / 0.4);
 }
 
 @layer base {
   * {
-    @apply border-border transition-colors duration-200;
+    @apply border-border;
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+               border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+               color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+               fill 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+               stroke 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+               opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+               box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+               transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   body {
-    @apply font-sans antialiased bg-background text-foreground;
+    @apply font-body antialiased bg-background text-foreground;
     min-height: 100vh;
+    font-feature-settings: 'cv11', 'ss01';
   }
 
-  /* Custom scrollbar */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+
+  /* Modern scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
 
   ::-webkit-scrollbar-track {
-    background: rgb(var(--muted));
+    background: hsl(var(--muted));
   }
 
   ::-webkit-scrollbar-thumb {
-    background: rgb(var(--primary));
-    border-radius: 4px;
+    background: hsl(var(--primary) / 0.5);
+    border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: rgb(var(--primary-dark));
+    background: hsl(var(--primary) / 0.8);
+  }
+
+  /* Selection styling */
+  ::selection {
+    background: hsl(var(--primary) / 0.2);
+    color: hsl(var(--foreground));
   }
 }

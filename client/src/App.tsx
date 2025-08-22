@@ -17,10 +17,13 @@ import Terms from "@/pages/terms";
 function Router() {
   return (
     <div className="min-h-screen flex flex-col relative">
-      {/* Background gradient animation */}
+      {/* Modern background */}
       <div className="fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-pink-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900"></div>
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-pink-100/20 via-transparent to-purple-100/20 dark:from-pink-900/10 dark:via-transparent dark:to-purple-900/10 animate-pulse"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-accent/30"></div>
+        <div className="absolute top-0 left-0 w-full h-full opacity-30">
+          <div className="absolute top-20 right-20 w-72 h-72 bg-primary/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 left-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+        </div>
       </div>
       
       <Navigation />

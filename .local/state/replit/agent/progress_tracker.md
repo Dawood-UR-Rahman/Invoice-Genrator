@@ -23,3 +23,4 @@
 [x] 23. Fix email popup mobile layout with white background and center positioning
 [x] 24. Implement proper toast notification colors (red for errors, green for success)
 [x] 25. Set z-index 9999 for popups and notifications on mobile
+[x] 26. Change default theme from light to dark theme

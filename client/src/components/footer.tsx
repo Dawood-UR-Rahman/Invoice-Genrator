@@ -12,9 +12,16 @@ export default function Footer() {
             {/* Company Info */}
             <div className="space-y-8 fade-in">
               <div className="space-y-4">
-                <h3 className="text-2xl font-display font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                  Invoice Pro
-                </h3>
+                <div className="flex items-center space-x-3">
+                  <img 
+                    src="/src/assets/Professional_invoice_management_logo_16aa0397.png" 
+                    alt="Invoice Pro Logo" 
+                    className="h-8 w-auto object-contain"
+                  />
+                  <h3 className="text-2xl font-display font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                    Invoice Pro
+                  </h3>
+                </div>
                 <p className="text-muted-foreground text-sm leading-relaxed font-body">
                   The most professional and user-friendly invoice management system for modern businesses.
                 </p>
@@ -55,6 +62,7 @@ export default function Footer() {
                     <Link 
                       href={item.to}
                       className="flex items-start text-muted-foreground hover:text-foreground transition-all duration-300 group"
+                      style={{ justifyContent: 'flex-start' }}
                     >
                       <i className={`${item.icon} mr-3 group-hover:text-primary transition-colors`}></i>
                       <span className="group-hover:translate-x-1 transition-transform font-body text-left">{item.label}</span>
@@ -78,6 +86,7 @@ export default function Footer() {
                       <Link 
                         href={item.to}
                         className="flex items-start text-muted-foreground hover:text-foreground transition-all duration-300 group"
+                        style={{ justifyContent: 'flex-start' }}
                       >
                         <i className="fas fa-arrow-right mr-3 group-hover:text-primary transition-colors"></i>
                         <span className="group-hover:translate-x-1 transition-transform font-body text-left">{item.label}</span>
@@ -86,6 +95,7 @@ export default function Footer() {
                       <a 
                         href={item.href}
                         className="flex items-start text-muted-foreground hover:text-foreground transition-all duration-300 group"
+                        style={{ justifyContent: 'flex-start' }}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -110,6 +120,7 @@ export default function Footer() {
                     <Link 
                       href={item.to}
                       className="flex items-start text-muted-foreground hover:text-foreground transition-all duration-300 group"
+                      style={{ justifyContent: 'flex-start' }}
                     >
                       <i className="fas fa-arrow-right mr-3 group-hover:text-primary transition-colors"></i>
                       <span className="group-hover:translate-x-1 transition-transform font-body text-left">{item.label}</span>

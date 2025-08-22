@@ -86,34 +86,9 @@ export default function Navigation() {
               </Link>
             ))}
             
-            {/* Theme Toggle */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-              className="ml-3 hover:bg-accent/50 rounded-full w-10 h-10"
-            >
-              {theme === "light" ? (
-                <i className="fas fa-moon text-base text-primary"></i>
-              ) : (
-                <i className="fas fa-sun text-base text-primary"></i>
-              )}
-            </Button>
           </nav>
           
           <div className="md:hidden flex items-center space-x-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-              className="hover:bg-accent/50 rounded-full w-10 h-10"
-            >
-              {theme === "light" ? (
-                <i className="fas fa-moon text-base text-primary"></i>
-              ) : (
-                <i className="fas fa-sun text-base text-primary"></i>
-              )}
-            </Button>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 text-muted-foreground hover:text-foreground hover:bg-accent/50 rounded-xl transition-all duration-300"

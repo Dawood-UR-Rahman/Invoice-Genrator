@@ -84,7 +84,7 @@ export default function EmailModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md w-[95vw] max-h-[90vh] overflow-y-auto mx-4">
+      <DialogContent className="max-w-md w-[95vw] max-h-[90vh] overflow-y-auto mx-4 bg-white dark:bg-gray-900 rounded-xl shadow-2xl border-0 sm:border fixed left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] z-[9999]">
         <DialogHeader>
           <DialogTitle className="flex items-center text-base sm:text-lg">
             <i className="fas fa-envelope mr-2 text-primary"></i>

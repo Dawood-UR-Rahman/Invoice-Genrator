@@ -19,3 +19,7 @@
 [x] 19. Fix email popup mobile layout
 [x] 20. Create mobile-friendly Line Items layout (vertical stacking)
 [x] 21. Add desktop border radius to Invoice Preview section
+[x] 22. Add Discord, Twitter, and Facebook icons to footer with links
+[x] 23. Fix email popup mobile layout with white background and center positioning
+[x] 24. Implement proper toast notification colors (red for errors, green for success)
+[x] 25. Set z-index 9999 for popups and notifications on mobile

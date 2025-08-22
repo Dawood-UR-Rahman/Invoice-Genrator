@@ -34,7 +34,10 @@ export default function Footer() {
               </div>
               <div className="flex space-x-4">
                 {[
-                  { icon: 'fab fa-linkedin', href: 'https://linkedin.com', label: 'LinkedIn' }
+                  { icon: 'fab fa-linkedin', href: 'https://linkedin.com', label: 'LinkedIn' },
+                  { icon: 'fab fa-discord', href: 'https://discord.com', label: 'Discord' },
+                  { icon: 'fab fa-twitter', href: 'https://twitter.com', label: 'Twitter' },
+                  { icon: 'fab fa-facebook', href: 'https://facebook.com', label: 'Facebook' }
                 ].map((social) => (
                   <a
                     key={social.label}

@@ -2,12 +2,16 @@ import { useState, useEffect } from "react";
 import { useParams, useLocation } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import InvoiceForm from "@/components/invoice-form";
+import SimplifiedInvoiceForm from "@/components/simplified-invoice-form";
 import InvoicePreview from "@/components/invoice-preview";
 import EmailModal from "@/components/email-modal";
+import LogoUpload from "@/components/logo-upload";
 import { PDFDownloadButton } from "@/lib/pdf-generator";
 import { useInvoiceStorage } from "@/hooks/use-invoice-storage";
 import { generateQRCode } from "@/lib/qr-generator";
@@ -57,6 +61,39 @@ export default function CreateInvoice() {
   const [qrCodeDataURL, setQRCodeDataURL] = useState<string | null>(null);
   const [hasVisitedHistory, setHasVisitedHistory] = useState(false);
   const [justCreatedInvoice, setJustCreatedInvoice] = useState(false);
+
+  const handleLineItemChange = (index: number, field: keyof LineItemFormData, value: string | number) => {
+    const updatedItems = [...lineItems];
+    updatedItems[index] = { ...updatedItems[index], [field]: value };
+    
+    // Calculate amount when rate or quantity changes
+    if (field === 'rate' || field === 'quantity') {
+      const rate = field === 'rate' ? parseFloat(value.toString()) : parseFloat(updatedItems[index].rate);
+      const quantity = field === 'quantity' ? Number(value) : updatedItems[index].quantity;
+      updatedItems[index].amount = ((rate || 0) * (quantity || 0)).toFixed(2);
+    }
+    
+    setLineItems(updatedItems);
+  };
+
+  const addLineItem = () => {
+    setLineItems([
+      ...lineItems,
+      { description: "", quantity: 1, rate: "0.00", amount: "0.00" }
+    ]);
+  };
+
+  const removeLineItem = (index: number) => {
+    const updatedItems = lineItems.filter((_, i) => i !== index);
+    setLineItems(updatedItems);
+  };
+
+  // Initialize with one line item if empty
+  useEffect(() => {
+    if (lineItems.length === 0) {
+      setLineItems([{ description: "", quantity: 1, rate: "0.00", amount: "0.00" }]);
+    }
+  }, [lineItems.length]);
 
   const isEditing = !!params.id;
 
@@ -407,7 +444,269 @@ export default function CreateInvoice() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
         {/* Left Column - Form */}
         <div className="lg:col-span-2">
-          <InvoiceForm
+          {/* Actions Container with Create Invoice Button */}
+          <Card className="mb-6">
+            <CardContent className="p-4 lg:p-6">
+              <h3 className="text-base lg:text-lg font-semibold text-gray-900 mb-4">Actions</h3>
+              <div className="space-y-3">
+                {/* Create Invoice Button - Always visible at top */}
+                <Button
+                  onClick={handleSave}
+                  disabled={createInvoiceMutation.isPending || updateInvoiceMutation.isPending}
+                  className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-3 font-medium shadow-lg hover:shadow-xl border-0"
+                >
+                  {createInvoiceMutation.isPending || updateInvoiceMutation.isPending ? (
+                    <>
+                      <i className="fas fa-spinner fa-spin mr-2"></i>Saving...
+                    </>
+                  ) : (
+                    <>
+                      <i className="fas fa-check mr-2"></i>
+                      {isEditing ? "Update Invoice" : "Create Invoice"}
+                    </>
+                  )}
+                </Button>
+                
+                {currentInvoice && (
+                  <PDFDownloadButton
+                    invoice={currentInvoice}
+                    qrCodeDataURL={qrCodeDataURL || undefined}
+                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-3 rounded-xl font-medium transition-all duration-300 flex items-center justify-center text-sm lg:text-base shadow-md hover:shadow-lg"
+                  >
+                    <i className="fas fa-download mr-2"></i>Download PDF
+                  </PDFDownloadButton>
+                )}
+                
+                {((!justCreatedInvoice && currentInvoice) || (justCreatedInvoice && hasVisitedHistory)) && (
+                  <Button
+                    onClick={() => {
+                      if (!currentInvoice) {
+                        toast({
+                          title: "No invoice to send",
+                          description: "Please create an invoice first before sending an email.",
+                          variant: "destructive",
+                        });
+                        return;
+                      }
+                      setIsEmailModalOpen(true);
+                    }}
+                    className="w-full bg-green-600 hover:bg-green-700 py-3 text-sm lg:text-base"
+                  >
+                    <i className="fas fa-envelope mr-2"></i>Send Email
+                  </Button>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Company Information and Bill To - Two Columns */}
+          <Card className="mb-6">
+            <CardContent className="p-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* First Column - Company Details */}
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Company Information</h3>
+                  <div className="space-y-4">
+                    <div className="col-span-full">
+                      <LogoUpload
+                        onLogoChange={(logo) => handleFormChange("companyLogo", logo)}
+                        currentLogo={formData.companyLogo}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="companyName">Company Name *</Label>
+                      <Input
+                        id="companyName"
+                        value={formData.companyName}
+                        onChange={(e) => handleFormChange("companyName", e.target.value)}
+                        placeholder="Acme Corporation"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="companyEmail">Email Address *</Label>
+                      <Input
+                        id="companyEmail"
+                        type="email"
+                        value={formData.companyEmail}
+                        onChange={(e) => handleFormChange("companyEmail", e.target.value)}
+                        placeholder="hello@acmecorp.com"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="companyPhone">Phone Number</Label>
+                      <Input
+                        id="companyPhone"
+                        type="tel"
+                        value={formData.companyPhone}
+                        onChange={(e) => handleFormChange("companyPhone", e.target.value)}
+                        placeholder="+1 (555) 123-4567"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="companyWebsite">Website</Label>
+                      <Input
+                        id="companyWebsite"
+                        type="url"
+                        value={formData.companyWebsite}
+                        onChange={(e) => handleFormChange("companyWebsite", e.target.value)}
+                        placeholder="www.acmecorp.com"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="companyAddress">Address</Label>
+                      <Textarea
+                        id="companyAddress"
+                        value={formData.companyAddress}
+                        onChange={(e) => handleFormChange("companyAddress", e.target.value)}
+                        rows={3}
+                        placeholder="123 Business St, Suite 100&#10;New York, NY 10001"
+                        className="mt-1"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Second Column - Bill To */}
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Bill To</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <Label htmlFor="clientName">Client Name *</Label>
+                      <Input
+                        id="clientName"
+                        value={formData.clientName}
+                        onChange={(e) => handleFormChange("clientName", e.target.value)}
+                        placeholder="John Smith"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="clientEmail">Client Email *</Label>
+                      <Input
+                        id="clientEmail"
+                        type="email"
+                        value={formData.clientEmail}
+                        onChange={(e) => handleFormChange("clientEmail", e.target.value)}
+                        placeholder="john@example.com"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="clientCompany">Company</Label>
+                      <Input
+                        id="clientCompany"
+                        value={formData.clientCompany}
+                        onChange={(e) => handleFormChange("clientCompany", e.target.value)}
+                        placeholder="Client Company Inc"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="clientPhone">Phone</Label>
+                      <Input
+                        id="clientPhone"
+                        type="tel"
+                        value={formData.clientPhone}
+                        onChange={(e) => handleFormChange("clientPhone", e.target.value)}
+                        placeholder="+1 (555) 987-6543"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="clientAddress">Billing Address</Label>
+                      <Textarea
+                        id="clientAddress"
+                        value={formData.clientAddress}
+                        onChange={(e) => handleFormChange("clientAddress", e.target.value)}
+                        rows={3}
+                        placeholder="456 Client Ave&#10;Los Angeles, CA 90210"
+                        className="mt-1"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Line Items Section */}
+          <Card className="mb-6">
+            <CardContent className="p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Line Items</h3>
+              <div className="space-y-4">
+                {lineItems.map((item, index) => (
+                  <div key={index} className="grid grid-cols-1 md:grid-cols-12 gap-4 p-4 border border-gray-200 rounded-lg">
+                    <div className="md:col-span-5">
+                      <Label htmlFor={`description-${index}`}>Description</Label>
+                      <Input
+                        id={`description-${index}`}
+                        value={item.description}
+                        onChange={(e) => handleLineItemChange(index, "description", e.target.value)}
+                        placeholder="Service or product description"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <Label htmlFor={`quantity-${index}`}>Qty</Label>
+                      <Input
+                        id={`quantity-${index}`}
+                        type="number"
+                        min="1"
+                        value={item.quantity}
+                        onChange={(e) => handleLineItemChange(index, "quantity", parseInt(e.target.value) || 0)}
+                        placeholder="1"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <Label htmlFor={`rate-${index}`}>Rate</Label>
+                      <Input
+                        id={`rate-${index}`}
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value={item.rate}
+                        onChange={(e) => handleLineItemChange(index, "rate", e.target.value)}
+                        placeholder="0.00"
+                        className="mt-1"
+                      />
+                    </div>
+                    <div className="md:col-span-2">
+                      <Label>Amount</Label>
+                      <div className="mt-1 p-2 bg-gray-50 rounded border text-right font-medium">
+                        ${item.amount}
+                      </div>
+                    </div>
+                    <div className="md:col-span-1 flex items-end">
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => removeLineItem(index)}
+                        className="w-full"
+                      >
+                        <i className="fas fa-trash text-xs"></i>
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={addLineItem}
+                  className="w-full border-dashed border-2 py-8 text-gray-500 hover:text-gray-700 hover:border-gray-400"
+                >
+                  <i className="fas fa-plus mr-2"></i>Add Line Item
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          <SimplifiedInvoiceForm
             formData={formData}
             lineItems={lineItems}
             onFormChange={handleFormChange}
@@ -415,7 +714,7 @@ export default function CreateInvoice() {
           />
         </div>
 
-        {/* Right Column - Preview & Actions */}
+        {/* Right Column - Preview */}
         <div className="space-y-6">
           {/* Mobile: Show preview in collapsed state */}
           <div className="lg:hidden">
@@ -447,70 +746,6 @@ export default function CreateInvoice() {
               onFormChange={handleFormChange}
             />
           </div>
-
-          {/* Action Buttons */}
-          <Card>
-            <CardContent className="p-4 lg:p-6">
-              <h3 className="text-base lg:text-lg font-semibold text-gray-900 mb-4">Actions</h3>
-              <div className="space-y-3">
-                {/* Mobile: Create Invoice Button */}
-                <div className="lg:hidden">
-                  <Button
-                    onClick={handleSave}
-                    disabled={createInvoiceMutation.isPending || updateInvoiceMutation.isPending}
-                    className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-3 font-medium shadow-lg hover:shadow-xl border-0 mb-3"
-                  >
-                    {createInvoiceMutation.isPending || updateInvoiceMutation.isPending ? (
-                      <>
-                        <i className="fas fa-spinner fa-spin mr-2"></i>Saving...
-                      </>
-                    ) : (
-                      <>
-                        <i className="fas fa-check mr-2"></i>
-                        {isEditing ? "Update Invoice" : "Create Invoice"}
-                      </>
-                    )}
-                  </Button>
-                </div>
-                
-                {currentInvoice && (
-                  <PDFDownloadButton
-                    invoice={currentInvoice}
-                    qrCodeDataURL={qrCodeDataURL || undefined}
-                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-3 rounded-xl font-medium transition-all duration-300 flex items-center justify-center text-sm lg:text-base shadow-md hover:shadow-lg"
-                  >
-                    <i className="fas fa-download mr-2"></i>Download PDF
-                  </PDFDownloadButton>
-                )}
-                {!justCreatedInvoice && (
-                  <Button
-                    onClick={() => {
-                      if (!currentInvoice) {
-                        toast({
-                          title: "No invoice to send",
-                          description: "Please create an invoice first before sending an email.",
-                          variant: "destructive",
-                        });
-                        return;
-                      }
-                      setIsEmailModalOpen(true);
-                    }}
-                    className="w-full bg-green-600 hover:bg-green-700 py-3 text-sm lg:text-base"
-                  >
-                    <i className="fas fa-envelope mr-2"></i>Send Email
-                  </Button>
-                )}
-                {justCreatedInvoice && hasVisitedHistory && (
-                  <Button
-                    onClick={() => setIsEmailModalOpen(true)}
-                    className="w-full bg-green-600 hover:bg-green-700 py-3 text-sm lg:text-base"
-                  >
-                    <i className="fas fa-envelope mr-2"></i>Send Email
-                  </Button>
-                )}
-              </div>
-            </CardContent>
-          </Card>
 
           {/* Summary */}
           {lineItems.length > 0 && (

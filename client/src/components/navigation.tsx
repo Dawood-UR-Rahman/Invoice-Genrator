@@ -66,7 +66,7 @@ export default function Navigation() {
               </svg>
               <div>
                 <h1 className="text-2xl font-display font-bold text-foreground">
-                  Invoice Pro
+                  invoicedetail
                 </h1>
                 <p className="text-xs text-muted-foreground font-medium font-body">Professional Invoicing</p>
               </div>

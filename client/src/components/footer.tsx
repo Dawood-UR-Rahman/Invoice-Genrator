@@ -25,7 +25,7 @@ export default function Footer() {
                     <text x="43" y="41" fill="white" fontSize="4" textAnchor="middle">$</text>
                   </svg>
                   <h3 className="text-2xl font-display font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                    Invoice Pro
+                    invoicedetail
                   </h3>
                 </div>
                 <p className="text-muted-foreground text-sm leading-relaxed font-body">

@@ -30,9 +30,27 @@ export function ThemeProvider({
   useEffect(() => {
     const root = window.document.documentElement;
 
-    // Always apply light theme
+    // Force light theme and override browser preferences
     root.classList.remove("dark");
     root.classList.add("light");
+    
+    // Override system color scheme preference
+    const style = document.createElement('style');
+    style.textContent = `
+      :root {
+        color-scheme: light !important;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          color-scheme: light !important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    return () => {
+      document.head.removeChild(style);
+    };
   }, []);
 
   const value = {

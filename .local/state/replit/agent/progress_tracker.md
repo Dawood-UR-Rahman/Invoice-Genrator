@@ -27,3 +27,9 @@
 [x] 27. Remove dark theme and keep only light theme
 [x] 28. Simplify theme provider to force light theme only
 [x] 29. Remove theme switching functionality
+[x] 30. Fix dropdown backgrounds (Document Type, Currency, Invoice Template) to white
+[x] 31. Remove footer links (PDF Export, Email Integration, QR Code Generation)
+[x] 32. Fix theme system to prevent browser dark mode from affecting site
+[x] 33. Generate sitemap.xml for invoicedetail.com
+[x] 34. Add comprehensive SEO meta tags for invoicedetail.com
+[x] 35. Create robots.txt for search engine optimization

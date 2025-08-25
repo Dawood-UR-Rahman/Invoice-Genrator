@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Important pages
+Allow: /create
+Allow: /history
+Allow: /about
+Allow: /contact
+
+# Legal pages
+Allow: /privacy
+Allow: /terms
+
+# Sitemap location
+Sitemap: https://invoicedetail.com/sitemap.xml
+
+# Crawl-delay for all robots
+Crawl-delay: 1

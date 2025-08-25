@@ -60,10 +60,7 @@ export default function Footer() {
               <ul className="space-y-3">
                 {[
                   { label: 'Create Invoices', to: '/create', icon: 'fas fa-plus' },
-                  { label: 'Invoice History', to: '/history', icon: 'fas fa-history' },
-                  { label: 'PDF Export', to: '/create', icon: 'fas fa-file-pdf' },
-                  { label: 'Email Integration', to: '/create', icon: 'fas fa-envelope' },
-                  { label: 'QR Code Generation', to: '/create', icon: 'fas fa-qrcode' }
+                  { label: 'Invoice History', to: '/history', icon: 'fas fa-history' }
                 ].map((item) => (
                   <li key={item.label}>
                     <Link 

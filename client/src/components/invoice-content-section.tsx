@@ -22,32 +22,32 @@ interface FAQItem {
 
 const features: FeatureItem[] = [
   {
-    icon: "fas fa-bolt",
+    icon: "⚡",
     title: "Fast and Easy",
     description: "Generate invoices in seconds. Add your logo, client details, and items, and your invoice is ready."
   },
   {
-    icon: "fas fa-palette",
+    icon: "🎨",
     title: "Fully Customizable",
     description: "Personalize your invoices with templates, colors, fonts, and branding to reflect your business style."
   },
   {
-    icon: "fas fa-sync-alt",
+    icon: "🔄",
     title: "Automated & Recurring",
     description: "Save time by automating recurring invoices and payment reminders."
   },
   {
-    icon: "fas fa-chart-line",
+    icon: "📊",
     title: "Track Payments",
     description: "Stay on top of your business with real-time tracking of paid, pending, and overdue invoices."
   },
   {
-    icon: "fas fa-shield-alt",
+    icon: "🛡️",
     title: "Secure and Reliable",
     description: "Your data is protected, and every invoice complies with modern billing standards."
   },
   {
-    icon: "fas fa-globe",
+    icon: "🌍",
     title: "Multi-Currency Support",
     description: "Invoice clients around the world with ease using any major currency."
   }
@@ -83,27 +83,27 @@ const processSteps: ProcessStep[] = [
 
 const additionalFeatures: FeatureItem[] = [
   {
-    icon: "fas fa-gift",
+    icon: "🎁",
     title: "Free Invoice Generator",
     description: "Start creating invoices at no cost."
   },
   {
-    icon: "fas fa-th-large",
+    icon: "📄",
     title: "Multiple Templates",
     description: "Professional designs for every business type."
   },
   {
-    icon: "fas fa-file-pdf",
+    icon: "📧",
     title: "PDF & Email Delivery",
     description: "Download invoices or send them directly to clients."
   },
   {
-    icon: "fas fa-calculator",
+    icon: "🧮",
     title: "Tax & Discount Calculations",
     description: "Automatic totals for hassle-free billing."
   },
   {
-    icon: "fas fa-link",
+    icon: "🔗",
     title: "Accounting Integrations",
     description: "Sync with QuickBooks, Xero, or other tools."
   }
@@ -181,34 +181,51 @@ export default function InvoiceContentSection() {
       </section>
 
       {/* Why Choose Section */}
-      <section>
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Why Choose Invoicedetail.com?
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Discover the features that make invoicing simple and professional
-          </p>
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="relative">
+          <img 
+            src={featuresImage} 
+            alt="Invoice Features" 
+            className="w-full h-auto rounded-2xl shadow-2xl"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent rounded-2xl"></div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 glass border-0 shadow-lg">
-              <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-primary to-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <i className={`${feature.icon} text-white text-2xl`}></i>
+        <div>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+            Why Choose Invoicedetail.com?
+          </h2>
+          <p className="text-xl text-muted-foreground mb-8">
+            Discover the features that make invoicing simple and professional
+          </p>
+          
+          <div className="space-y-6">
+            {features.map((feature, index) => (
+              <div key={index} className="flex items-start gap-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-primary to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <span className="text-white text-xl">{feature.icon}</span>
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-4">{feature.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
-              </CardContent>
-            </Card>
-          ))}
+                <div>
+                  <h3 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h3>
+                  <p className="text-muted-foreground">{feature.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Features Section */}
       <section className="bg-gradient-to-br from-secondary/50 to-background rounded-3xl p-8 md:p-12 border border-border">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="relative">
+            <img 
+              src={processImage} 
+              alt="Invoice Workflow Process" 
+              className="w-full h-auto rounded-2xl shadow-2xl"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent rounded-2xl"></div>
+          </div>
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
               Features You'll Love
@@ -217,7 +234,7 @@ export default function InvoiceContentSection() {
               {additionalFeatures.map((feature, index) => (
                 <div key={index} className="flex items-start gap-4">
                   <div className="w-12 h-12 bg-gradient-to-r from-primary to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
-                    <i className={`${feature.icon} text-white text-lg`}></i>
+                    <span className="text-white text-xl">{feature.icon}</span>
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h3>
@@ -226,14 +243,6 @@ export default function InvoiceContentSection() {
                 </div>
               ))}
             </div>
-          </div>
-          <div className="relative">
-            <img 
-              src={featuresImage} 
-              alt="Invoice Features" 
-              className="w-full h-auto rounded-2xl shadow-2xl"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent rounded-2xl"></div>
           </div>
         </div>
       </section>
@@ -247,16 +256,11 @@ export default function InvoiceContentSection() {
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
             Create professional invoices in just 5 simple steps
           </p>
-          <img 
-            src={processImage} 
-            alt="Invoice Creation Process" 
-            className="w-full max-w-4xl mx-auto h-auto rounded-2xl shadow-2xl mb-8"
-          />
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
           {processSteps.map((step, index) => (
-            <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white border-0 shadow-lg relative overflow-hidden">
+            <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 glass border-0 shadow-lg relative overflow-hidden">
               <CardContent className="p-6 text-center relative z-10">
                 <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-primary to-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <span className="text-white text-xl font-bold">{step.number}</span>

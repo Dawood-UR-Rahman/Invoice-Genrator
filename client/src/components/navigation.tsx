@@ -38,11 +38,15 @@ export default function Navigation() {
   const navItems = [
     { path: "/create", label: "Create Invoice", icon: "fas fa-plus" },
     { path: "/history", label: "Invoice History", icon: "fas fa-history" },
+    { path: "/blog", label: "Blog", icon: "fas fa-blog" },
   ];
 
   const isActive = (path: string) => {
     if (path === "/create") {
       return location === "/" || location === "/create" || location.startsWith("/edit");
+    }
+    if (path === "/blog") {
+      return location === "/blog" || location.startsWith("/blog/");
     }
     return location === path;
   };

@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
-import heroImage from "@/assets/Invoice_management_hero_illustration_ba9c017c.png";
-import featuresImage from "@/assets/Business_features_icon_set_773dbd79.png";
-import processImage from "@/assets/Invoice_creation_process_steps_935cdcb6.png";
+import heroImage from "@/assets/Professional_invoice_dashboard_hero_83e6a056.png";
+import featuresImage from "@/assets/Invoice_business_features_showcase_00ba884b.png";
+import processImage from "@/assets/Invoice_workflow_process_diagram_8ee2c762.png";
 
 interface FeatureItem {
   icon: string;
@@ -164,15 +164,15 @@ export default function InvoiceContentSection() {
               alt="Professional Invoice Management" 
               className="w-full h-64 md:h-80 object-cover rounded-2xl shadow-2xl"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-pink-500/20 to-purple-500/20 rounded-2xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-2xl"></div>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 bg-clip-text text-transparent mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-primary via-purple-600 to-blue-600 bg-clip-text text-transparent mb-6">
             Create Professional Invoices Instantly
           </h1>
-          <p className="text-xl md:text-2xl text-gray-600 mb-8 leading-relaxed">
+          <p className="text-xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
             Simplify Your Billing with Our Free Invoice Generator
           </p>
-          <p className="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg text-foreground/80 max-w-3xl mx-auto leading-relaxed">
             Invoicedetail.com making invoices effortless. Whether you're a freelancer, small business owner, or entrepreneur, 
             our online invoice generator helps you create professional invoices in minutes. No complicated software. 
             No manual calculations. Just accurate, polished invoices ready to send.
@@ -183,23 +183,23 @@ export default function InvoiceContentSection() {
       {/* Why Choose Section */}
       <section>
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Why Choose Invoicedetail.com?
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Discover the features that make invoicing simple and professional
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50/50 border-0 shadow-lg">
+            <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 glass border-0 shadow-lg">
               <CardContent className="p-8 text-center">
-                <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-primary to-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <i className={`${feature.icon} text-white text-2xl`}></i>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                <h3 className="text-xl font-bold text-foreground mb-4">{feature.title}</h3>
+                <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
               </CardContent>
             </Card>
           ))}
@@ -207,21 +207,21 @@ export default function InvoiceContentSection() {
       </section>
 
       {/* Features Section */}
-      <section className="bg-gradient-to-br from-gray-50 to-white rounded-3xl p-8 md:p-12">
+      <section className="bg-gradient-to-br from-secondary/50 to-background rounded-3xl p-8 md:p-12 border border-border">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
               Features You'll Love
             </h2>
             <div className="space-y-6">
               {additionalFeatures.map((feature, index) => (
                 <div key={index} className="flex items-start gap-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-gradient-to-r from-primary to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
                     <i className={`${feature.icon} text-white text-lg`}></i>
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                    <p className="text-gray-600">{feature.description}</p>
+                    <h3 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h3>
+                    <p className="text-muted-foreground">{feature.description}</p>
                   </div>
                 </div>
               ))}
@@ -233,7 +233,7 @@ export default function InvoiceContentSection() {
               alt="Invoice Features" 
               className="w-full h-auto rounded-2xl shadow-2xl"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-pink-500/10 to-transparent rounded-2xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent rounded-2xl"></div>
           </div>
         </div>
       </section>
@@ -241,10 +241,10 @@ export default function InvoiceContentSection() {
       {/* How It Works Section */}
       <section>
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             How It Works
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
             Create professional invoices in just 5 simple steps
           </p>
           <img 
@@ -258,35 +258,35 @@ export default function InvoiceContentSection() {
           {processSteps.map((step, index) => (
             <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white border-0 shadow-lg relative overflow-hidden">
               <CardContent className="p-6 text-center relative z-10">
-                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-primary to-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                   <span className="text-white text-xl font-bold">{step.number}</span>
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-3">{step.title}</h3>
-                <p className="text-gray-600 text-sm leading-relaxed">{step.description}</p>
+                <h3 className="text-lg font-bold text-foreground mb-3">{step.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
               </CardContent>
-              <div className="absolute inset-0 bg-gradient-to-br from-pink-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </Card>
           ))}
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-3xl p-8 md:p-12">
+      <section className="bg-gradient-to-br from-secondary/30 to-accent/30 rounded-3xl p-8 md:p-12 border border-border">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Everything you need to know about our invoice generator
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {faqs.map((faq, index) => (
-            <Card key={index} className="bg-white/70 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+            <Card key={index} className="glass border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
               <CardContent className="p-6">
-                <h3 className="text-lg font-bold text-gray-900 mb-3">{faq.question}</h3>
-                <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                <h3 className="text-lg font-bold text-foreground mb-3">{faq.question}</h3>
+                <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
               </CardContent>
             </Card>
           ))}
@@ -294,7 +294,7 @@ export default function InvoiceContentSection() {
       </section>
 
       {/* Call to Action */}
-      <section className="text-center bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 rounded-3xl p-8 md:p-12 text-white">
+      <section className="text-center gradient-primary rounded-3xl p-8 md:p-12 text-primary-foreground">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
           Ready to Create Your First Invoice?
         </h2>

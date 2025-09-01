@@ -247,53 +247,99 @@ export default function InvoiceContentSection() {
         </div>
       </section>
 
-      {/* How It Works Section */}
-      <section>
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            How It Works
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-            Create professional invoices in just 5 simple steps
-          </p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-          {processSteps.map((step, index) => (
-            <Card key={index} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-2 glass border-0 shadow-lg relative overflow-hidden">
-              <CardContent className="p-6 text-center relative z-10">
-                <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-primary to-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <span className="text-white text-xl font-bold">{step.number}</span>
+      {/* How It Works Section - Image Right */}
+      <section className="bg-gradient-to-br from-secondary/50 to-background rounded-3xl p-8 md:p-12 border border-border">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+              How It Works
+            </h2>
+            <p className="text-xl text-muted-foreground mb-8">
+              Create professional invoices in just 5 simple steps
+            </p>
+            <div className="space-y-6">
+              {processSteps.map((step, index) => (
+                <div key={index} className="flex items-start gap-4">
+                  <div className="w-12 h-12 bg-gradient-to-r from-primary to-purple-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-lg font-bold">{step.number}</span>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-foreground mb-2">{step.title}</h3>
+                    <p className="text-muted-foreground">{step.description}</p>
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold text-foreground mb-3">{step.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{step.description}</p>
-              </CardContent>
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </Card>
-          ))}
+              ))}
+            </div>
+          </div>
+          <div className="relative">
+            <img 
+              src={heroImage} 
+              alt="Invoice Creation Dashboard" 
+              className="w-full h-auto rounded-2xl shadow-2xl"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent rounded-2xl"></div>
+          </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="bg-gradient-to-br from-secondary/30 to-accent/30 rounded-3xl p-8 md:p-12 border border-border">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Everything you need to know about our invoice generator
-          </p>
+      {/* Professional Solutions Section - Image Left */}
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="relative">
+          <img 
+            src={processImage} 
+            alt="Professional Invoice Solutions" 
+            className="w-full h-auto rounded-2xl shadow-2xl"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent rounded-2xl"></div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-          {faqs.map((faq, index) => (
-            <Card key={index} className="glass border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-              <CardContent className="p-6">
-                <h3 className="text-lg font-bold text-foreground mb-3">{faq.question}</h3>
+        <div>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+            Professional Solutions
+          </h2>
+          <p className="text-xl text-muted-foreground mb-8">
+            Everything you need to know about our invoice generator
+          </p>
+          
+          <div className="space-y-6">
+            {faqs.slice(0, 5).map((faq, index) => (
+              <div key={index} className="space-y-3">
+                <h3 className="text-lg font-semibold text-foreground">{faq.question}</h3>
                 <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
-              </CardContent>
-            </Card>
-          ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Advanced Features Section - Image Right */}
+      <section className="bg-gradient-to-br from-secondary/30 to-accent/30 rounded-3xl p-8 md:p-12 border border-border">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+              Advanced Features
+            </h2>
+            <p className="text-xl text-muted-foreground mb-8">
+              Powerful tools for professional invoice management
+            </p>
+            
+            <div className="space-y-6">
+              {faqs.slice(5).map((faq, index) => (
+                <div key={index} className="space-y-3">
+                  <h3 className="text-lg font-semibold text-foreground">{faq.question}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{faq.answer}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="relative">
+            <img 
+              src={featuresImage} 
+              alt="Advanced Invoice Features" 
+              className="w-full h-auto rounded-2xl shadow-2xl"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent rounded-2xl"></div>
+          </div>
         </div>
       </section>
 

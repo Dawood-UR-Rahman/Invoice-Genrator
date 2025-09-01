@@ -12,6 +12,7 @@ import SimplifiedInvoiceForm from "@/components/simplified-invoice-form";
 import InvoicePreview from "@/components/invoice-preview";
 import EmailModal from "@/components/email-modal";
 import LogoUpload from "@/components/logo-upload";
+import InvoiceContentSection from "@/components/invoice-content-section";
 import { PDFDownloadButton } from "@/lib/pdf-generator";
 import { useInvoiceStorage } from "@/hooks/use-invoice-storage";
 import { generateQRCode } from "@/lib/qr-generator";
@@ -957,6 +958,9 @@ export default function CreateInvoice() {
           clientEmail={currentInvoice.clientEmail}
         />
       )}
+
+      {/* Content Section */}
+      <InvoiceContentSection />
     </div>
   );
 }

@@ -16,7 +16,10 @@ import { PDFDownloadButton } from "@/lib/pdf-generator";
 import { useInvoiceStorage } from "@/hooks/use-invoice-storage";
 import { generateQRCode } from "@/lib/qr-generator";
 import type { InvoiceFormData, LineItemFormData } from "@/types/invoice";
-import type { InvoiceWithLineItems, CreateInvoiceRequest } from "@shared/schema";
+import type {
+  InvoiceWithLineItems,
+  CreateInvoiceRequest,
+} from "@shared/schema";
 
 const defaultFormData: InvoiceFormData = {
   companyName: "",
@@ -31,7 +34,7 @@ const defaultFormData: InvoiceFormData = {
   clientPhone: "",
   clientAddress: "",
   invoiceNumber: `INV-${Date.now().toString().slice(-6)}`,
-  invoiceDate: new Date().toISOString().split('T')[0],
+  invoiceDate: new Date().toISOString().split("T")[0],
   dueDate: "",
   notes: "",
   currency: "USD",
@@ -54,7 +57,7 @@ export default function CreateInvoice() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const { saveDraft } = useInvoiceStorage();
-  
+
   const [formData, setFormData] = useState<InvoiceFormData>(defaultFormData);
   const [lineItems, setLineItems] = useState<LineItemFormData[]>([]);
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
@@ -62,24 +65,32 @@ export default function CreateInvoice() {
   const [hasVisitedHistory, setHasVisitedHistory] = useState(false);
   const [justCreatedInvoice, setJustCreatedInvoice] = useState(false);
 
-  const handleLineItemChange = (index: number, field: keyof LineItemFormData, value: string | number) => {
+  const handleLineItemChange = (
+    index: number,
+    field: keyof LineItemFormData,
+    value: string | number,
+  ) => {
     const updatedItems = [...lineItems];
     updatedItems[index] = { ...updatedItems[index], [field]: value };
-    
+
     // Calculate amount when rate or quantity changes
-    if (field === 'rate' || field === 'quantity') {
-      const rate = field === 'rate' ? parseFloat(value.toString()) : parseFloat(updatedItems[index].rate);
-      const quantity = field === 'quantity' ? Number(value) : updatedItems[index].quantity;
+    if (field === "rate" || field === "quantity") {
+      const rate =
+        field === "rate"
+          ? parseFloat(value.toString())
+          : parseFloat(updatedItems[index].rate);
+      const quantity =
+        field === "quantity" ? Number(value) : updatedItems[index].quantity;
       updatedItems[index].amount = ((rate || 0) * (quantity || 0)).toFixed(2);
     }
-    
+
     setLineItems(updatedItems);
   };
 
   const addLineItem = () => {
     setLineItems([
       ...lineItems,
-      { description: "", quantity: 1, rate: "0.00", amount: "0.00" }
+      { description: "", quantity: 1, rate: "0.00", amount: "0.00" },
     ]);
   };
 
@@ -91,7 +102,9 @@ export default function CreateInvoice() {
   // Initialize with one line item if empty
   useEffect(() => {
     if (lineItems.length === 0) {
-      setLineItems([{ description: "", quantity: 1, rate: "0.00", amount: "0.00" }]);
+      setLineItems([
+        { description: "", quantity: 1, rate: "0.00", amount: "0.00" },
+      ]);
     }
   }, [lineItems.length]);
 
@@ -122,7 +135,8 @@ export default function CreateInvoice() {
     onError: (error: any) => {
       toast({
         title: "Failed to create invoice",
-        description: error.message || "An error occurred while creating the invoice.",
+        description:
+          error.message || "An error occurred while creating the invoice.",
         variant: "destructive",
       });
     },
@@ -131,7 +145,11 @@ export default function CreateInvoice() {
   // Update invoice mutation
   const updateInvoiceMutation = useMutation({
     mutationFn: async (data: Partial<InvoiceFormData>) => {
-      const response = await apiRequest("PATCH", `/api/invoices/${params.id}`, data);
+      const response = await apiRequest(
+        "PATCH",
+        `/api/invoices/${params.id}`,
+        data,
+      );
       return response.json();
     },
     onSuccess: (invoice: InvoiceWithLineItems) => {
@@ -144,7 +162,8 @@ export default function CreateInvoice() {
     onError: (error: any) => {
       toast({
         title: "Failed to update invoice",
-        description: error.message || "An error occurred while updating the invoice.",
+        description:
+          error.message || "An error occurred while updating the invoice.",
         variant: "destructive",
       });
     },
@@ -152,10 +171,10 @@ export default function CreateInvoice() {
 
   // Check if user came from history page
   useEffect(() => {
-    const fromHistory = localStorage.getItem('fromHistory');
-    if (fromHistory === 'true') {
+    const fromHistory = localStorage.getItem("fromHistory");
+    if (fromHistory === "true") {
       setHasVisitedHistory(true);
-      localStorage.removeItem('fromHistory');
+      localStorage.removeItem("fromHistory");
     }
   }, []);
 
@@ -209,7 +228,7 @@ export default function CreateInvoice() {
           quantity: item.quantity,
           rate: item.rate,
           amount: item.amount,
-        }))
+        })),
       );
     }
   }, [existingInvoice]);
@@ -219,16 +238,16 @@ export default function CreateInvoice() {
     if (formData.isHosted && existingInvoice) {
       // Get the correct hosted URL from the API
       fetch(`/api/invoices/${existingInvoice.id}/hosted-url`)
-        .then(res => res.json())
-        .then(data => {
+        .then((res) => res.json())
+        .then((data) => {
           if (data.hostedUrl) {
             return generateQRCode(data.hostedUrl);
           }
-          throw new Error('No hosted URL received');
+          throw new Error("No hosted URL received");
         })
         .then(setQRCodeDataURL)
         .catch((error) => {
-          console.error('QR Code generation failed:', error);
+          console.error("QR Code generation failed:", error);
           setQRCodeDataURL(null);
         });
     } else {
@@ -237,11 +256,16 @@ export default function CreateInvoice() {
   }, [formData.isHosted, existingInvoice]);
 
   const handleFormChange = (field: keyof InvoiceFormData, value: any) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSave = () => {
-    if (!formData.companyName || !formData.companyEmail || !formData.clientName || !formData.clientEmail) {
+    if (
+      !formData.companyName ||
+      !formData.companyEmail ||
+      !formData.clientName ||
+      !formData.clientEmail
+    ) {
       toast({
         title: "Missing required fields",
         description: "Please fill in all required fields before saving.",
@@ -266,7 +290,7 @@ export default function CreateInvoice() {
         tax: "0",
         total: "0",
       },
-      lineItems: lineItems.map(item => ({
+      lineItems: lineItems.map((item) => ({
         description: item.description,
         quantity: item.quantity,
         rate: item.rate,
@@ -287,7 +311,8 @@ export default function CreateInvoice() {
       return sum + amount;
     }, 0);
 
-    const taxAmount = (subtotal * parseFloat(formData.taxPercentage || "0")) / 100;
+    const taxAmount =
+      (subtotal * parseFloat(formData.taxPercentage || "0")) / 100;
     const shippingAmount = parseFloat(formData.shippingCost || "0");
     const finalTotal = subtotal + taxAmount + shippingAmount;
 
@@ -322,7 +347,7 @@ export default function CreateInvoice() {
 
   const getCurrentInvoice = (): InvoiceWithLineItems | null => {
     if (existingInvoice) return existingInvoice;
-    
+
     const subtotal = lineItems.reduce((sum, item) => {
       const amount = parseFloat(item.rate || "0") * (item.quantity || 0);
       return sum + amount;
@@ -357,8 +382,15 @@ export default function CreateInvoice() {
       secondaryColor: formData.secondaryColor || "#64748b",
       fontFamily: formData.fontFamily || "Inter",
       subtotal: subtotal.toFixed(2),
-      tax: ((subtotal * parseFloat(formData.taxPercentage || "0")) / 100).toFixed(2),
-      total: (subtotal + (subtotal * parseFloat(formData.taxPercentage || "0")) / 100 + parseFloat(formData.shippingCost || "0")).toFixed(2),
+      tax: (
+        (subtotal * parseFloat(formData.taxPercentage || "0")) /
+        100
+      ).toFixed(2),
+      total: (
+        subtotal +
+        (subtotal * parseFloat(formData.taxPercentage || "0")) / 100 +
+        parseFloat(formData.shippingCost || "0")
+      ).toFixed(2),
       isHosted: formData.isHosted || false,
       isPasswordProtected: formData.isPasswordProtected || false,
       password: formData.password || null,
@@ -402,10 +434,9 @@ export default function CreateInvoice() {
                     {isEditing ? "Edit Invoice" : "Create New Invoice"}
                   </h2>
                   <p className="text-gray-600 font-medium">
-                    {isEditing 
-                      ? "Update the details of your invoice" 
-                      : "Fill in the details below to generate your professional invoice"
-                    }
+                    {isEditing
+                      ? "Update the details of your invoice"
+                      : "Fill in the details below to generate your professional invoice"}
                   </p>
                 </div>
               </div>
@@ -414,17 +445,24 @@ export default function CreateInvoice() {
               <Button
                 variant="outline"
                 onClick={handleSaveDraft}
-                disabled={createInvoiceMutation.isPending || updateInvoiceMutation.isPending}
+                disabled={
+                  createInvoiceMutation.isPending ||
+                  updateInvoiceMutation.isPending
+                }
                 className="w-full sm:w-auto btn-animate bg-white/80 hover:bg-white border-white/20 hover:border-white/40 text-gray-700 hover:text-gray-900 shadow-lg"
               >
                 <i className="fas fa-save mr-2"></i>Save Draft
               </Button>
               <Button
                 onClick={handleSave}
-                disabled={createInvoiceMutation.isPending || updateInvoiceMutation.isPending}
+                disabled={
+                  createInvoiceMutation.isPending ||
+                  updateInvoiceMutation.isPending
+                }
                 className="w-full sm:w-auto btn-animate bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-lg hover:shadow-xl border-0"
               >
-                {createInvoiceMutation.isPending || updateInvoiceMutation.isPending ? (
+                {createInvoiceMutation.isPending ||
+                updateInvoiceMutation.isPending ? (
                   <>
                     <i className="fas fa-spinner fa-spin mr-2"></i>Saving...
                   </>
@@ -444,72 +482,21 @@ export default function CreateInvoice() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
         {/* Left Column - Form */}
         <div className="lg:col-span-2">
-          {/* Actions Container with Create Invoice Button */}
-          <Card className="mb-6">
-            <CardContent className="p-4 lg:p-6">
-              <h3 className="text-base lg:text-lg font-semibold text-gray-900 mb-4">Actions</h3>
-              <div className="space-y-3">
-                {/* Create Invoice Button - Always visible at top */}
-                <Button
-                  onClick={handleSave}
-                  disabled={createInvoiceMutation.isPending || updateInvoiceMutation.isPending}
-                  className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-3 font-medium shadow-lg hover:shadow-xl border-0"
-                >
-                  {createInvoiceMutation.isPending || updateInvoiceMutation.isPending ? (
-                    <>
-                      <i className="fas fa-spinner fa-spin mr-2"></i>Saving...
-                    </>
-                  ) : (
-                    <>
-                      <i className="fas fa-check mr-2"></i>
-                      {isEditing ? "Update Invoice" : "Create Invoice"}
-                    </>
-                  )}
-                </Button>
-                
-                {currentInvoice && (
-                  <PDFDownloadButton
-                    invoice={currentInvoice}
-                    qrCodeDataURL={qrCodeDataURL || undefined}
-                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-3 rounded-xl font-medium transition-all duration-300 flex items-center justify-center text-sm lg:text-base shadow-md hover:shadow-lg"
-                  >
-                    <i className="fas fa-download mr-2"></i>Download PDF
-                  </PDFDownloadButton>
-                )}
-                
-                {((!justCreatedInvoice && currentInvoice) || (justCreatedInvoice && hasVisitedHistory)) && (
-                  <Button
-                    onClick={() => {
-                      if (!currentInvoice) {
-                        toast({
-                          title: "No invoice to send",
-                          description: "Please create an invoice first before sending an email.",
-                          variant: "destructive",
-                        });
-                        return;
-                      }
-                      setIsEmailModalOpen(true);
-                    }}
-                    className="w-full bg-green-600 hover:bg-green-700 py-3 text-sm lg:text-base"
-                  >
-                    <i className="fas fa-envelope mr-2"></i>Send Email
-                  </Button>
-                )}
-              </div>
-            </CardContent>
-          </Card>
-
           {/* Company Information and Bill To - Two Columns */}
           <Card className="mb-6">
             <CardContent className="p-6">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* First Column - Company Details */}
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Company Information</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                    Company Information
+                  </h3>
                   <div className="space-y-4">
                     <div className="col-span-full">
                       <LogoUpload
-                        onLogoChange={(logo) => handleFormChange("companyLogo", logo)}
+                        onLogoChange={(logo) =>
+                          handleFormChange("companyLogo", logo)
+                        }
                         currentLogo={formData.companyLogo}
                       />
                     </div>
@@ -518,7 +505,9 @@ export default function CreateInvoice() {
                       <Input
                         id="companyName"
                         value={formData.companyName}
-                        onChange={(e) => handleFormChange("companyName", e.target.value)}
+                        onChange={(e) =>
+                          handleFormChange("companyName", e.target.value)
+                        }
                         placeholder="Acme Corporation"
                         className="mt-1"
                       />
@@ -529,7 +518,9 @@ export default function CreateInvoice() {
                         id="companyEmail"
                         type="email"
                         value={formData.companyEmail}
-                        onChange={(e) => handleFormChange("companyEmail", e.target.value)}
+                        onChange={(e) =>
+                          handleFormChange("companyEmail", e.target.value)
+                        }
                         placeholder="hello@acmecorp.com"
                         className="mt-1"
                       />
@@ -540,7 +531,9 @@ export default function CreateInvoice() {
                         id="companyPhone"
                         type="tel"
                         value={formData.companyPhone}
-                        onChange={(e) => handleFormChange("companyPhone", e.target.value)}
+                        onChange={(e) =>
+                          handleFormChange("companyPhone", e.target.value)
+                        }
                         placeholder="+1 (555) 123-4567"
                         className="mt-1"
                       />
@@ -551,7 +544,9 @@ export default function CreateInvoice() {
                         id="companyWebsite"
                         type="url"
                         value={formData.companyWebsite}
-                        onChange={(e) => handleFormChange("companyWebsite", e.target.value)}
+                        onChange={(e) =>
+                          handleFormChange("companyWebsite", e.target.value)
+                        }
                         placeholder="www.acmecorp.com"
                         className="mt-1"
                       />
@@ -561,7 +556,9 @@ export default function CreateInvoice() {
                       <Textarea
                         id="companyAddress"
                         value={formData.companyAddress}
-                        onChange={(e) => handleFormChange("companyAddress", e.target.value)}
+                        onChange={(e) =>
+                          handleFormChange("companyAddress", e.target.value)
+                        }
                         rows={3}
                         placeholder="123 Business St, Suite 100&#10;New York, NY 10001"
                         className="mt-1"
@@ -572,14 +569,18 @@ export default function CreateInvoice() {
 
                 {/* Second Column - Bill To */}
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Bill To</h3>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                    Bill To
+                  </h3>
                   <div className="space-y-4">
                     <div>
                       <Label htmlFor="clientName">Client Name *</Label>
                       <Input
                         id="clientName"
                         value={formData.clientName}
-                        onChange={(e) => handleFormChange("clientName", e.target.value)}
+                        onChange={(e) =>
+                          handleFormChange("clientName", e.target.value)
+                        }
                         placeholder="John Smith"
                         className="mt-1"
                       />
@@ -590,7 +591,9 @@ export default function CreateInvoice() {
                         id="clientEmail"
                         type="email"
                         value={formData.clientEmail}
-                        onChange={(e) => handleFormChange("clientEmail", e.target.value)}
+                        onChange={(e) =>
+                          handleFormChange("clientEmail", e.target.value)
+                        }
                         placeholder="john@example.com"
                         className="mt-1"
                       />
@@ -600,7 +603,9 @@ export default function CreateInvoice() {
                       <Input
                         id="clientCompany"
                         value={formData.clientCompany}
-                        onChange={(e) => handleFormChange("clientCompany", e.target.value)}
+                        onChange={(e) =>
+                          handleFormChange("clientCompany", e.target.value)
+                        }
                         placeholder="Client Company Inc"
                         className="mt-1"
                       />
@@ -611,7 +616,9 @@ export default function CreateInvoice() {
                         id="clientPhone"
                         type="tel"
                         value={formData.clientPhone}
-                        onChange={(e) => handleFormChange("clientPhone", e.target.value)}
+                        onChange={(e) =>
+                          handleFormChange("clientPhone", e.target.value)
+                        }
                         placeholder="+1 (555) 987-6543"
                         className="mt-1"
                       />
@@ -621,7 +628,9 @@ export default function CreateInvoice() {
                       <Textarea
                         id="clientAddress"
                         value={formData.clientAddress}
-                        onChange={(e) => handleFormChange("clientAddress", e.target.value)}
+                        onChange={(e) =>
+                          handleFormChange("clientAddress", e.target.value)
+                        }
                         rows={3}
                         placeholder="456 Client Ave&#10;Los Angeles, CA 90210"
                         className="mt-1"
@@ -636,16 +645,29 @@ export default function CreateInvoice() {
           {/* Line Items Section */}
           <Card className="mb-6">
             <CardContent className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Line Items</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Line Items
+              </h3>
               <div className="space-y-4">
                 {lineItems.map((item, index) => (
-                  <div key={index} className="grid grid-cols-1 md:grid-cols-12 gap-4 p-4 border border-gray-200 rounded-lg">
+                  <div
+                    key={index}
+                    className="grid grid-cols-1 md:grid-cols-12 gap-4 p-4 border border-gray-200 rounded-lg"
+                  >
                     <div className="md:col-span-5">
-                      <Label htmlFor={`description-${index}`}>Description</Label>
+                      <Label htmlFor={`description-${index}`}>
+                        Description
+                      </Label>
                       <Input
                         id={`description-${index}`}
                         value={item.description}
-                        onChange={(e) => handleLineItemChange(index, "description", e.target.value)}
+                        onChange={(e) =>
+                          handleLineItemChange(
+                            index,
+                            "description",
+                            e.target.value,
+                          )
+                        }
                         placeholder="Service or product description"
                         className="mt-1"
                       />
@@ -657,7 +679,13 @@ export default function CreateInvoice() {
                         type="number"
                         min="1"
                         value={item.quantity}
-                        onChange={(e) => handleLineItemChange(index, "quantity", parseInt(e.target.value) || 0)}
+                        onChange={(e) =>
+                          handleLineItemChange(
+                            index,
+                            "quantity",
+                            parseInt(e.target.value) || 0,
+                          )
+                        }
                         placeholder="1"
                         className="mt-1"
                       />
@@ -670,7 +698,9 @@ export default function CreateInvoice() {
                         min="0"
                         step="0.01"
                         value={item.rate}
-                        onChange={(e) => handleLineItemChange(index, "rate", e.target.value)}
+                        onChange={(e) =>
+                          handleLineItemChange(index, "rate", e.target.value)
+                        }
                         placeholder="0.00"
                         className="mt-1"
                       />
@@ -721,18 +751,43 @@ export default function CreateInvoice() {
             <Card className="glass border-0 shadow-premium">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-lg font-semibold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">Quick Preview</h3>
+                  <h3 className="text-lg font-semibold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+                    Quick Preview
+                  </h3>
                   {formData.isHosted && qrCodeDataURL && (
                     <div className="w-12 h-12 glass rounded-xl flex items-center justify-center hover-lift">
-                      <img src={qrCodeDataURL} alt="QR Code" className="w-10 h-10 object-contain" />
+                      <img
+                        src={qrCodeDataURL}
+                        alt="QR Code"
+                        className="w-10 h-10 object-contain"
+                      />
                     </div>
                   )}
                 </div>
                 <div className="text-sm text-gray-600 space-y-1">
-                  <div><strong>Invoice:</strong> {formData.invoiceNumber || "#INV-000"}</div>
-                  <div><strong>Company:</strong> {formData.companyName || "Company Name"}</div>
-                  <div><strong>Client:</strong> {formData.clientName || "Client Name"}</div>
-                  <div><strong>Total:</strong> ${lineItems.reduce((sum, item) => sum + (parseFloat(item.rate || "0") * (item.quantity || 0)), 0).toFixed(2)}</div>
+                  <div>
+                    <strong>Invoice:</strong>{" "}
+                    {formData.invoiceNumber || "#INV-000"}
+                  </div>
+                  <div>
+                    <strong>Company:</strong>{" "}
+                    {formData.companyName || "Company Name"}
+                  </div>
+                  <div>
+                    <strong>Client:</strong>{" "}
+                    {formData.clientName || "Client Name"}
+                  </div>
+                  <div>
+                    <strong>Total:</strong> $
+                    {lineItems
+                      .reduce(
+                        (sum, item) =>
+                          sum +
+                          parseFloat(item.rate || "0") * (item.quantity || 0),
+                        0,
+                      )
+                      .toFixed(2)}
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -746,55 +801,140 @@ export default function CreateInvoice() {
               onFormChange={handleFormChange}
             />
           </div>
+          {/* Actions Container with Create Invoice Button */}
+          <Card className="mb-6">
+            <CardContent className="p-4 lg:p-6">
+              <h3 className="text-base lg:text-lg font-semibold text-gray-900 mb-4">
+                Actions
+              </h3>
+              <div className="space-y-3">
+                {/* Create Invoice Button - Always visible at top */}
+                <Button
+                  onClick={handleSave}
+                  disabled={
+                    createInvoiceMutation.isPending ||
+                    updateInvoiceMutation.isPending
+                  }
+                  className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white py-3 font-medium shadow-lg hover:shadow-xl border-0"
+                >
+                  {createInvoiceMutation.isPending ||
+                  updateInvoiceMutation.isPending ? (
+                    <>
+                      <i className="fas fa-spinner fa-spin mr-2"></i>Saving...
+                    </>
+                  ) : (
+                    <>
+                      <i className="fas fa-check mr-2"></i>
+                      {isEditing ? "Update Invoice" : "Create Invoice"}
+                    </>
+                  )}
+                </Button>
 
+                {currentInvoice && (
+                  <PDFDownloadButton
+                    invoice={currentInvoice}
+                    qrCodeDataURL={qrCodeDataURL || undefined}
+                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-4 py-3 rounded-xl font-medium transition-all duration-300 flex items-center justify-center text-sm lg:text-base shadow-md hover:shadow-lg"
+                  >
+                    <i className="fas fa-download mr-2"></i>Download PDF
+                  </PDFDownloadButton>
+                )}
+
+                {((!justCreatedInvoice && currentInvoice) ||
+                  (justCreatedInvoice && hasVisitedHistory)) && (
+                  <Button
+                    onClick={() => {
+                      if (!currentInvoice) {
+                        toast({
+                          title: "No invoice to send",
+                          description:
+                            "Please create an invoice first before sending an email.",
+                          variant: "destructive",
+                        });
+                        return;
+                      }
+                      setIsEmailModalOpen(true);
+                    }}
+                    className="w-full bg-green-600 hover:bg-green-700 py-3 text-sm lg:text-base"
+                  >
+                    <i className="fas fa-envelope mr-2"></i>Send Email
+                  </Button>
+                )}
+              </div>
+            </CardContent>
+          </Card>
           {/* Summary */}
           {lineItems.length > 0 && (
             <Card className="border-l-4 border-l-blue-500">
               <CardContent className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Summary</h3>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  Summary
+                </h3>
                 <div className="space-y-3">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Subtotal:</span>
                     <span className="font-medium">
-                      ${lineItems.reduce((sum, item) => {
-                        const rate = parseFloat(item.rate || "0");
-                        const quantity = parseInt(item.quantity?.toString() || "0");
-                        return sum + (rate * quantity);
-                      }, 0).toFixed(2)}
+                      $
+                      {lineItems
+                        .reduce((sum, item) => {
+                          const rate = parseFloat(item.rate || "0");
+                          const quantity = parseInt(
+                            item.quantity?.toString() || "0",
+                          );
+                          return sum + rate * quantity;
+                        }, 0)
+                        .toFixed(2)}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Tax ({formData.taxPercentage || "0"}%):</span>
+                    <span className="text-gray-600">
+                      Tax ({formData.taxPercentage || "0"}%):
+                    </span>
                     <span className="font-medium">
-                      ${(() => {
+                      $
+                      {(() => {
                         const subtotal = lineItems.reduce((sum, item) => {
                           const rate = parseFloat(item.rate || "0");
-                          const quantity = parseInt(item.quantity?.toString() || "0");
-                          return sum + (rate * quantity);
+                          const quantity = parseInt(
+                            item.quantity?.toString() || "0",
+                          );
+                          return sum + rate * quantity;
                         }, 0);
-                        const taxRate = parseFloat(formData.taxPercentage || "0") / 100;
+                        const taxRate =
+                          parseFloat(formData.taxPercentage || "0") / 100;
                         return (subtotal * taxRate).toFixed(2);
                       })()}
                     </span>
                   </div>
-                  {formData.shippingCost && parseFloat(formData.shippingCost) > 0 && (
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Shipping:</span>
-                      <span className="font-medium">${formData.shippingCost}</span>
-                    </div>
-                  )}
+                  {formData.shippingCost &&
+                    parseFloat(formData.shippingCost) > 0 && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Shipping:</span>
+                        <span className="font-medium">
+                          ${formData.shippingCost}
+                        </span>
+                      </div>
+                    )}
                   <div className="border-t pt-2 flex justify-between">
-                    <span className="text-lg font-semibold text-gray-900">Total:</span>
+                    <span className="text-lg font-semibold text-gray-900">
+                      Total:
+                    </span>
                     <span className="text-lg font-bold text-blue-600">
-                      ${(() => {
+                      $
+                      {(() => {
                         const subtotal = lineItems.reduce((sum, item) => {
                           const rate = parseFloat(item.rate || "0");
-                          const quantity = parseInt(item.quantity?.toString() || "0");
-                          return sum + (rate * quantity);
+                          const quantity = parseInt(
+                            item.quantity?.toString() || "0",
+                          );
+                          return sum + rate * quantity;
                         }, 0);
-                        const taxRate = parseFloat(formData.taxPercentage || "0") / 100;
+                        const taxRate =
+                          parseFloat(formData.taxPercentage || "0") / 100;
                         const tax = subtotal * taxRate;
-                        const shipping = parseFloat(formData.shippingCost || "0");
+                        const shipping = parseFloat(
+                          formData.shippingCost || "0",
+                        );
                         return (subtotal + tax + shipping).toFixed(2);
                       })()}
                     </span>

@@ -139,7 +139,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="font-medium">Email Support</h4>
-                    <p className="text-muted-foreground">support@invoicepro.com</p>
+                    <p className="text-muted-foreground">support@invoicedetail.com</p>
                     <p className="text-sm text-muted-foreground">Response time: Within 24 hours</p>
                   </div>
                 </div>

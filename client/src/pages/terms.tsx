@@ -17,7 +17,7 @@ export default function Terms() {
             <h2 className="text-2xl font-semibold mb-4">1. Acceptance of Terms</h2>
             <div className="space-y-4 text-muted-foreground">
               <p>
-                By accessing and using Invoice Pro, you accept and agree to be bound by the terms and 
+                By accessing and using Invoice Detail, you accept and agree to be bound by the terms and 
                 provisions of this agreement. If you do not agree to these terms, you should not use our service.
               </p>
             </div>
@@ -27,7 +27,7 @@ export default function Terms() {
             <h2 className="text-2xl font-semibold mb-4">2. Description of Service</h2>
             <div className="space-y-4 text-muted-foreground">
               <p>
-                Invoice Pro is a web-based invoicing application that allows users to:
+                Invoice Detail is a web-based invoicing application that allows users to:
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li>Create and customize professional invoices</li>
@@ -84,7 +84,7 @@ export default function Terms() {
             <h2 className="text-2xl font-semibold mb-4">6. Intellectual Property</h2>
             <div className="space-y-4 text-muted-foreground">
               <p>
-                The service and all content, features, and functionality are owned by Invoice Pro and are 
+                The service and all content, features, and functionality are owned by Invoice Detail and are 
                 protected by copyright, trademark, and other intellectual property laws. You may not:
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
@@ -111,7 +111,7 @@ export default function Terms() {
             <h2 className="text-2xl font-semibold mb-4">8. Limitation of Liability</h2>
             <div className="space-y-4 text-muted-foreground">
               <p>
-                To the fullest extent permitted by law, Invoice Pro shall not be liable for any indirect, 
+                To the fullest extent permitted by law, Invoice Detail shall not be liable for any indirect, 
                 incidental, special, consequential, or punitive damages, including loss of profits, data, 
                 or use, arising from your use of the service.
               </p>
@@ -168,8 +168,8 @@ export default function Terms() {
                 If you have any questions about these Terms of Service, please contact us at:
               </p>
               <div className="bg-muted/50 rounded-lg p-4">
-                <p><strong>Email:</strong> legal@invoicepro.com</p>
-                <p><strong>Address:</strong> Invoice Pro Legal Team, [Your Address]</p>
+                <p><strong>Email:</strong> legal@invoicedetail.com</p>
+                <p><strong>Address:</strong> Invoice Detail Legal Team, [Your Address]</p>
               </div>
             </div>
           </section>

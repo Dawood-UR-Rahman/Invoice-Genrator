@@ -10,7 +10,7 @@ const blogPosts = [
     date: "January 2025",
     readTime: "5 min read",
     category: "Freelance",
-    image: "/src/assets/Professional_invoice_dashboard_hero_83e6a056.png"
+    image: "/assets/Professional_invoice_dashboard_hero_83e6a056.png"
   },
   {
     id: "billing-format-for-client",
@@ -19,7 +19,7 @@ const blogPosts = [
     date: "January 2025", 
     readTime: "4 min read",
     category: "Business",
-    image: "/src/assets/Invoice_business_features_showcase_00ba884b.png"
+    image: "/assets/Invoice_business_features_showcase_00ba884b.png"
   },
   {
     id: "invoice-vs-receipt",
@@ -28,7 +28,7 @@ const blogPosts = [
     date: "January 2025",
     readTime: "6 min read", 
     category: "Education",
-    image: "/src/assets/Invoice_workflow_process_diagram_8ee2c762.png"
+    image: "/assets/Invoice_workflow_process_diagram_8ee2c762.png"
   },
   {
     id: "cleaning-invoice-template",
@@ -37,7 +37,7 @@ const blogPosts = [
     date: "January 2025",
     readTime: "5 min read",
     category: "Industry",
-    image: "/src/assets/Professional_invoice_dashboard_hero_83e6a056.png"
+    image: "/assets/Professional_invoice_dashboard_hero_83e6a056.png"
   }
 ];
 

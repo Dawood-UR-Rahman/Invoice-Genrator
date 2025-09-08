@@ -139,7 +139,7 @@ export default function Footer() {
           <div className="border-t border-border/50 mt-16 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
               <div className="text-muted-foreground text-sm font-body text-left">
-                © {new Date().getFullYear()} Invoice Pro. All rights reserved. Built with ❤️ for modern businesses.
+                © {new Date().getFullYear()} Invoice Detail. All rights reserved. Built with ❤️ for modern businesses.
               </div>
               <div className="flex items-center space-x-6 text-sm">
                 <div className="flex items-center space-x-2 text-muted-foreground">

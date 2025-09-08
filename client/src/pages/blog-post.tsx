@@ -9,7 +9,7 @@ const blogPosts = {
     date: "January 2025",
     readTime: "5 min read",
     category: "Freelance",
-    image: "/src/assets/Professional_invoice_dashboard_hero_83e6a056.png",
+    image: "/assets/Professional_invoice_dashboard_hero_83e6a056.png",
     content: `
 # Freelance Writer Invoice Template: Free, Customizable & Professional
 
@@ -109,7 +109,7 @@ Most templates allow customization for different currencies and tax rates, makin
     date: "January 2025", 
     readTime: "4 min read",
     category: "Business",
-    image: "/src/assets/Invoice_business_features_showcase_00ba884b.png",
+    image: "/assets/Invoice_business_features_showcase_00ba884b.png",
     content: `
 # Billing Format for Client: Easy, Professional & Ready-to-Use Templates
 
@@ -208,7 +208,7 @@ You can export it as a PDF or Word file and send it via email, or use an invoici
     date: "January 2025",
     readTime: "6 min read", 
     category: "Education",
-    image: "/src/assets/Invoice_workflow_process_diagram_8ee2c762.png",
+    image: "/assets/Invoice_workflow_process_diagram_8ee2c762.png",
     content: `
 # Invoice vs Receipt: Key Differences, Uses & Examples Explained
 
@@ -301,7 +301,7 @@ Understanding these differences and using professional templates can save time, 
     date: "January 2025",
     readTime: "5 min read",
     category: "Industry",
-    image: "/src/assets/Professional_invoice_dashboard_hero_83e6a056.png",
+    image: "/assets/Professional_invoice_dashboard_hero_83e6a056.png",
     content: `
 # Cleaning Invoice Template: Free, Editable & Professional Format
 

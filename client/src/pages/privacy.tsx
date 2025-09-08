@@ -17,7 +17,7 @@ export default function Privacy() {
             <h2 className="text-2xl font-semibold mb-4">1. Information We Collect</h2>
             <div className="space-y-4 text-muted-foreground">
               <p>
-                When you use Invoice Pro, we collect information that helps us provide and improve our services:
+                When you use Invoice Detail, we collect information that helps us provide and improve our services:
               </p>
               <ul className="list-disc list-inside space-y-2 ml-4">
                 <li><strong>Account Information:</strong> Name, email address, and company details</li>
@@ -133,8 +133,8 @@ export default function Privacy() {
                 If you have questions about this Privacy Policy or our data practices, please contact us at:
               </p>
               <div className="bg-muted/50 rounded-lg p-4">
-                <p><strong>Email:</strong> privacy@invoicepro.com</p>
-                <p><strong>Address:</strong> Invoice Pro Privacy Team, [Your Address]</p>
+                <p><strong>Email:</strong> privacy@invoicedetail.com</p>
+                <p><strong>Address:</strong> Invoice Detail Privacy Team, [Your Address]</p>
               </div>
             </div>
           </section>

@@ -2,8 +2,9 @@ import { useParams, Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
+import { blogPosts } from "@/data/blog-posts";
 
-const blogPosts = {
+const localBlogPosts = {
   "freelance-writer-invoice-template": {
     title: "Freelance Writer Invoice Template: Free, Customizable & Professional",
     date: "January 2025",
@@ -409,7 +410,7 @@ Start using a professional cleaning invoice template today and take the hassle o
 
 export default function BlogPost() {
   const { slug } = useParams();
-  const post = slug ? blogPosts[slug as keyof typeof blogPosts] : null;
+  const post = slug ? blogPosts.find(p => p.id === slug) : null;
 
   if (!post) {
     return (
